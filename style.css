@@ -1,54 +1,101 @@
-body {
-    margin: 0;
+.body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .action-description {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 40px;
-    font-weight: bold;
-    position: absolute;
-    display: block;
-    width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 40px;
+  font-weight: bold;
+  position: absolute;
+  display: block;
+  width: 100%;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    justify-content: center;
-    /* горизонталь */
-    align-items: center;
-    /* вертикаль */
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .container {
-    /* width: 560px; */
-    display: flex;
-    gap: 10px;
-    /* відстань між div */
-    background: #ffffff;
-    justify-content: center;  /* горизонталь всередині container */
-    flex-wrap: wrap;          /* якщо мало місця на мобільних — переносить на наступний ряд */
-    width: 100%;              /* займати всю ширину wrapper */
-    max-width: 560px;
+  display: flex;
+  gap: 10px;
+  background-color: #ffffff;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 560px;
+}
+
+.math-actions {
+  font-family: 'Noto Sans Math', Roboto, sans-serif;
+  max-width: 830px;
+  text-transform: uppercase;
 }
 
 .box {
-    width: 100px;
-    height: 100px;
-    background: #edf8f8;
-    font-size: 60px;
-    font-weight: bold;
-    display: flex;           /* важливо для центрування внутрішнього input */
-    justify-content: center; /* центр по горизонталі */
-    align-items: center;     /* центр по вертикалі */
-    text-align: center;
+  width: 100px;
+  height: 100px;
+  background-color: #e2ebf1;
+  font-size: 60px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.box.operator {
+  font-family: 'Noto Sans Math', Roboto, sans-serif;
 }
 
 .hidden {
   visibility: hidden;
+}
+
+.math-action {
+  position: relative;
+  width: 200px;
+  height: 60px;
+  font-size: 25px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.math-action:hover,
+.math-action.active {
+  background-color: #b6e0f7;
+  cursor: pointer;
+  color: transparent;
+}
+
+.math-action::after {
+  content: attr(data-hover);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1;
+  color: black;
+  opacity: 0; 
+  transition: opacity 0.5s;
+}
+
+.math-action:hover::after,
+.math-action.active::after {
+  opacity: 1;
 }
 
 .tip {
@@ -61,43 +108,53 @@ body {
 }
 
 .resfield {
-    all: unset;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-
-    /* поведінка тексту */
-    line-height: normal;
-    cursor: text;
-
-    /* Firefox — прибрати стрілки */
-    -moz-appearance: textfield;
+  all: unset;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  line-height: normal;
+  cursor: text;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
-/* Chrome, Edge, Safari — прибрати стрілки */
-.resfield::-webkit-inner-spin-button,
-.resfield::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* (необовʼязково) фокус */
 .resfield:focus {
-    outline: none;
+  outline: none;
 }
 
 @media (max-width: 480px) {
-    .action-description {
-        font-size: 25px;
-    }
+  .action-description {
+    font-size: 25px;
+  }
 
-    .container {
-        max-width: 100%;
-    }
+  .container {
+    max-width: 100%;
+  }
 
-    .box {
-        width: 50px;
-        height: 50px;
-        font-size: 30px;
-    }
+  .math-actions {
+    max-width: 320px;
+  }
+
+  .box {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 5px;
+  }
+
+  .math-action {
+    width: 150px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 15px;
+  }
+
+  .math-action:hover:after {
+    font-size: 22px;
+  }
+
+  .tip {
+    border-radius: 25px;
+  }
 }

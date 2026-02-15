@@ -1,32 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap"
+      rel="stylesheet"
+    />
+    <title>Simple Math</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-
-<body>
+  <body class="body">
     <h1 class="action-description">виконай дію</h1>
     <div class="wrapper">
-        <div class="container">
-            <div class="box firstnum"></div>
-            <div class="box math-action">×</div>
-            <div class="box secondnum"></div>
-            <div class="box">=</div>
-            <div class="box result">
-                <input class="resfield" name="resfield" type="number" autofocus>
-            </div>
+      <div class="container math-actions">
+        <div
+          class="box math-action"
+          data-hover="+"
+        >
+          додавання
         </div>
-        <div class="container tips hidden">
-          <div class="box tip"></div>
-          <div class="box tip"></div>
-          <div class="box tip"></div>
+        <div
+          class="box math-action"
+          data-hover="−"
+        >
+          віднімання
         </div>
+        <div
+          class="box math-action active"
+          data-hover="·"
+        >
+          множення
+        </div>
+        <div
+          class="box math-action"
+          data-hover="∶"
+        >
+          ділення
+        </div>
+      </div>
+      <div class="container">
+        <div class="box firstnum"></div>
+        <div class="box operator">×</div>
+        <div class="box secondnum"></div>
+        <div class="box">=</div>
+        <div class="box result">
+          <input
+            class="resfield"
+            name="resfield"
+            type="tel"
+            inputmode="numeric"
+            autofocus
+          />
+        </div>
+      </div>
+      <div class="container tips hidden">
+        <div class="box tip"></div>
+        <div class="box tip"></div>
+        <div class="box tip"></div>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

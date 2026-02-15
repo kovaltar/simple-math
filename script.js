@@ -1,16 +1,33 @@
-const firstNumBox = document.querySelector(".firstnum");
-const secondNumBox = document.querySelector(".secondnum");
-const mathActionBox = document.querySelector(".math-action");
-const resultBox = document.querySelector(".result");
-const input = document.querySelector(".resfield");
+const mathActionBoxes = document.querySelectorAll('.math-action');
+
+const firstNumBox = document.querySelector('.firstnum');
+const secondNumBox = document.querySelector('.secondnum');
+
+const operatorBox = document.querySelector('.operator');
+
+const resultBox = document.querySelector('.result');
+const input = document.querySelector('.resfield');
 let inputValue = null;
-const mathActions = { add: "+", sub: "-", mul: "·", div: ":" };
+const mathActions = { add: '+', sub: '−', mul: '·', div: '∶' };
 let mathActionValue = mathActions.mul;
-const tipsContainer = document.querySelector(".tips");
-const tipBoxes = document.querySelectorAll(".tip");
+const tipsContainer = document.querySelector('.tips');
+const tipBoxes = document.querySelectorAll('.tip');
 const tips = [];
 
-mathActionBox.innerText = mathActionValue;
+mathActionBoxes.forEach(box => {
+  box.addEventListener('click', () => {
+    mathActionBoxes.forEach(b => b.classList.remove('active'));
+    box.classList.add('active');
+    mathActionValue = box.dataset.hover;
+    console.log(`box.dataset.hover = ${box.dataset.hover}`);
+    operatorBox.innerText = mathActionValue;
+  });
+});
+
+const click = new Event('click');
+document.querySelector('.math-action.active').dispatchEvent(click);
+
+// operatorBox.innerText = mathActionValue;
 
 function getRndNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -77,7 +94,7 @@ function submit() {
       secondNum = getRndNum();
       firstNumBox.innerText = firstNum;
       secondNumBox.innerText = secondNum;
-      resultBox.style.backgroundColor = "#edf8f8";
+      resultBox.style.backgroundColor = "#e2ebf1";
       result = firstNum * secondNum;
       input.value = "";
     }, 1000);
