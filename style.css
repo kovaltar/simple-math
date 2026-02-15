@@ -14,6 +14,8 @@ body {
 
 .wrapper {
     display: flex;
+    flex-direction: column;
+    gap: 50px;
     justify-content: center;
     /* горизонталь */
     align-items: center;
@@ -33,26 +35,29 @@ body {
     max-width: 560px;
 }
 
-/* .box {
-    width: 100px;
-    height: 100px;
-    background: #edf8f8;
-    font-size: 80px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1.2;
-    align-items: stretch;
-} */
 .box {
     width: 100px;
     height: 100px;
     background: #edf8f8;
-    font-size: 80px;
+    font-size: 60px;
     font-weight: bold;
     display: flex;           /* важливо для центрування внутрішнього input */
     justify-content: center; /* центр по горизонталі */
     align-items: center;     /* центр по вертикалі */
     text-align: center;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.tip {
+  border-radius: 50px;
+}
+
+.tip:hover {
+  background-color: #b6e0f7;
+  cursor: pointer;
 }
 
 .resfield {
@@ -93,6 +98,6 @@ body {
     .box {
         width: 50px;
         height: 50px;
-        font-size: 40px;
+        font-size: 30px;
     }
 }
