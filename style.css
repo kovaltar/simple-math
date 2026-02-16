@@ -3,13 +3,15 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.header {
+  margin: 100px auto;
+}
+
 .action-description {
   text-align: center;
   text-transform: uppercase;
   font-size: 40px;
   font-weight: bold;
-  position: absolute;
-  display: block;
   width: 100%;
 }
 
@@ -17,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
   min-height: 100vh;
 }
@@ -33,7 +35,6 @@
 }
 
 .math-actions {
-  font-family: 'Noto Sans Math', Roboto, sans-serif;
   max-width: 830px;
   text-transform: uppercase;
 }
@@ -69,6 +70,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 
 .math-action:hover,
@@ -78,8 +80,14 @@
   color: transparent;
 }
 
+.math-action.active {
+  border: 2px solid #000;
+  box-sizing: border-box;
+}
+
 .math-action::after {
   content: attr(data-hover);
+  font-family: 'Noto Sans Math', Roboto, sans-serif;
   position: absolute;
   inset: 0;
   display: flex;
@@ -89,7 +97,7 @@
   font-weight: bold;
   line-height: 1;
   color: black;
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.5s;
 }
 
@@ -98,7 +106,18 @@
   opacity: 1;
 }
 
+.tips {
+  position: relative;
+}
+
+.tips::before {
+  position: absolute;
+  top: -30px;
+  content: "Обери правильну відповідь:";
+}
+
 .tip {
+  width: 140px;
   border-radius: 50px;
 }
 
@@ -124,6 +143,10 @@
 }
 
 @media (max-width: 480px) {
+  .header {
+    margin: 50px auto;
+  }
+
   .action-description {
     font-size: 25px;
   }
@@ -145,16 +168,17 @@
 
   .math-action {
     width: 150px;
-    height: 30px;
-    font-size: 12px;
+    height: 50px;
+    font-size: 16px;
     border-radius: 15px;
   }
 
-  .math-action:hover:after {
+  .math-action::after {
     font-size: 22px;
   }
 
   .tip {
+    width: 70px;
     border-radius: 25px;
   }
 }
