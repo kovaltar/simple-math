@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html
+  class="page"
+  lang="en"
+>
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -8,7 +11,11 @@
     />
     <link
       rel="stylesheet"
-      href="style.css"
+      href="css/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="css/styles.css"
     />
     <link
       rel="preconnect"
@@ -27,62 +34,186 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="icon shortcut"
+      href="images/logo.svg"
+      type="image/svg+xml"
+    />
     <title>Simple Math</title>
   </head>
 
-  <body class="body">
+  <body class="page__body">
     <header class="header">
-      <h1 class="action-description">виконай дію</h1>
+      <div class="top-bar">
+        <svg
+          class="top-bar__icon"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <use href="./images/logo.svg" />
+        </svg>
+        <h1 class="top-bar__title">виконай дію</h1>
+        <div class="top-bar__buttons">
+          <button
+            class="top-bar__btn"
+            id="gameMenuToggle"
+            aria-expanded="false"
+            aria-controls="gameMenu"
+          >
+            <svg class="top-bar__icon">
+              <use href="./images/icon-burger-menu.svg#icon-menu"></use>
+            </svg>
+          </button>
+          <button
+            class="top-bar__btn"
+            id="langMenuToggle"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="langMenu"
+          >
+            <svg
+              class="top-bar__icon"
+              viewBox="0 0 24 24"
+            >
+              <use href="./images/icon-lang.svg#icon-lang" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <aside
+        id="gameMenu"
+        class="menu"
+      >
+        <nav class="menu__nav">
+          <ul class="menu__list">
+            <li
+              class="menu__item"
+              data-mode="addition"
+            >
+              <span class="menu__icon">+</span> Додавання
+            </li>
+            <li
+              class="menu__item"
+              data-mode="subtraction"
+            >
+              <span class="menu__icon">−</span> Віднімання
+            </li>
+            <li
+              class="menu__item"
+              data-mode="multiplication"
+            >
+              <span class="menu__icon">×</span> Множення
+            </li>
+            <li
+              class="menu__item"
+              data-mode="division"
+            >
+              <span class="menu__icon">÷</span> Ділення
+            </li>
+            <li
+              class="menu__item"
+              data-mode="make10"
+            >
+              🎯 Утвори 10
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <aside
+        class="menu"
+        id="langMenu"
+      >
+        <nav class="menu__nav">
+          <ul
+            class="menu__list"
+            role="listbox"
+          >
+            <li
+              class="menu__item"
+              role="option"
+              data-lang="uk"
+            >
+              UA
+            </li>
+            <li
+              class="menu__item"
+              role="option"
+              data-lang="en"
+            >
+              EN
+            </li>
+            <li
+              class="menu__item"
+              role="option"
+              data-lang="pl"
+            >
+              PL
+            </li>
+          </ul>
+        </nav>
+      </aside>
     </header>
-    
-    <div class="wrapper">
-      <div class="container math-actions">
-        <div
-          class="box math-action"
-          data-hover="+"
-        >
-          додавання
+    <main>
+      <div class="game wrapper">
+        <div class="game_container">
+          <div class="game__box game__box--first"></div>
+          <div class="game__box game__box--operator">×</div>
+          <div class="game__box game__box--second"></div>
+          <div class="game__box game__box--equals">=</div>
+          <div class="game__box game__box--result"></div>
         </div>
-        <div
-          class="box math-action"
-          data-hover="−"
-        >
-          віднімання
+        <div class="hidden container container math-actions">
+          <div
+            class="box math-action"
+            data-hover="+"
+          >
+            додавання
+          </div>
+          <div
+            class="box math-action"
+            data-hover="−"
+          >
+            віднімання
+          </div>
+          <div
+            class="box math-action active"
+            data-hover="·"
+          >
+            множення
+          </div>
+          <div
+            class="box math-action"
+            data-hover="∶"
+          >
+            ділення
+          </div>
         </div>
-        <div
-          class="box math-action active"
-          data-hover="·"
-        >
-          множення
+        <div class="exercise container">
+          <div
+            class="exercise__operand exercise__operand--first box firstnum"
+          ></div>
+          <div class="exercise__operator box operator">×</div>
+          <div
+            class="exercise__operand exercise__operand--second box secondnum"
+          ></div>
+          <div class="exercise__equals box">=</div>
+          <div class="exercise__result box result">
+            <input
+              class="exercise__input resfield"
+              name="resfield"
+              type="tel"
+              inputmode="numeric"
+              autofocus
+            />
+          </div>
         </div>
-        <div
-          class="box math-action"
-          data-hover="∶"
-        >
-          ділення
+        <div class="container tips hidden">
+          <div class="box tip"></div>
+          <div class="box tip"></div>
+          <div class="box tip"></div>
         </div>
       </div>
-      <div class="container">
-        <div class="box firstnum"></div>
-        <div class="box operator">×</div>
-        <div class="box secondnum"></div>
-        <div class="box">=</div>
-        <div class="box result">
-          <input
-            class="resfield"
-            name="resfield"
-            type="tel"
-            inputmode="numeric"
-            autofocus
-          />
-        </div>
-      </div>
-      <div class="container tips hidden">
-        <div class="box tip"></div>
-        <div class="box tip"></div>
-        <div class="box tip"></div>
-      </div>
-    </div>
-    <script src="script.js"></script>
+    </main>
+    <script src="js/script.js"></script>
+    <script src="js/ui.js"></script>
   </body>
 </html>

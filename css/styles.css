@@ -1,0 +1,138 @@
+.page {
+  background-color: #EFF6FF;
+}
+
+.header {
+  position: sticky;
+  z-index: 10;
+}
+
+.top-bar {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(#3b82f6, #60a5fa);
+}
+.top-bar__logo-link {
+  display: flex;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+}
+.top-bar__title {
+  margin: 0;
+  width: fit-content;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+.top-bar__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.top-bar__btn {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.top-bar__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+.top-bar__btn:hover {
+  transform: scale(1.1);
+}
+.top-bar__icon {
+  width: 80%;
+  height: 80%;
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  padding: 0 20px 20px 20px;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.menu__item {
+  padding-top: 20px;
+}
+.menu__item::after {
+  content: "";
+  position: relative;
+  bottom: -2px;
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #1e3a8a;
+  transition: transform 0.3s;
+  transform: scale(0);
+  transform-origin: left;
+}
+.menu__item:hover::after {
+  transform: scale(1);
+}
+.menu__item:hover {
+  background-color: #dbeafe;
+  cursor: pointer;
+}
+.menu .menu__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  background: #ffeb3b;
+  color: #1e3a8a;
+}
+
+.menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */

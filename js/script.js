@@ -1,4 +1,4 @@
-const descriptionBox = document.querySelector(".action-description");
+const descriptionBox = document.querySelector(".top-bar__title");
 const mathActionBoxes = document.querySelectorAll(".math-action");
 
 const firstNumBox = document.querySelector(".firstnum");
