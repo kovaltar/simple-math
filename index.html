@@ -51,7 +51,7 @@
         >
           <use href="./images/logo.svg" />
         </svg>
-        <h1 class="top-bar__title">виконай дію</h1>
+        <h1 class="top-bar__title">Simple Math</h1>
         <div class="top-bar__buttons">
           <button
             class="top-bar__btn"
@@ -88,30 +88,39 @@
             <li
               class="menu__item"
               data-mode="addition"
+              data-text="виконай додавання"
             >
-              <span class="menu__icon">+</span> Додавання
+              <span class="menu__icon">+</span>
+              <span class="menu__text">Додавання</span>
             </li>
             <li
               class="menu__item"
               data-mode="subtraction"
+              data-text="виконай віднімання"
             >
-              <span class="menu__icon">−</span> Віднімання
+              <span class="menu__icon">−</span>
+              <span class="menu__text">Віднімання</span>
             </li>
             <li
               class="menu__item"
               data-mode="multiplication"
+              data-text="виконай множення"
             >
-              <span class="menu__icon">×</span> Множення
+              <span class="menu__icon">×</span>
+              <span class="menu__text">Множення</span>
             </li>
             <li
               class="menu__item"
               data-mode="division"
+              data-text="виконай ділення"
             >
-              <span class="menu__icon">÷</span> Ділення
+              <span class="menu__icon">÷</span>
+              <span class="menu__text">Ділення</span>
             </li>
             <li
               class="menu__item"
               data-mode="make10"
+              data-text="утвори 10"
             >
               🎯 Утвори 10
             </li>
@@ -152,68 +161,81 @@
         </nav>
       </aside>
     </header>
-    <main>
-      <div class="game wrapper">
-        <div class="game_container">
+    <main class="main">
+      <div class="game">
+        <div class="game__container game__container--start">
+          <h2 class="game__start-title">вибери режим:</h2>
+          <aside
+            id="startMenu"
+            class="menu game__start-menu open"
+          >
+            <nav class="menu__nav">
+              <ul class="menu__list">
+                <li
+                  class="menu__item"
+                  data-mode="addition"
+                  data-text="виконай додавання"
+                >
+                  <span class="menu__icon">+</span>
+                  <span class="menu__text">Додавання</span>
+                </li>
+                <li
+                  class="menu__item"
+                  data-mode="subtraction"
+                  data-text="виконай віднімання"
+                >
+                  <span class="menu__icon">−</span>
+                  <span class="menu__text">Віднімання</span>
+                </li>
+                <li
+                  class="menu__item"
+                  data-mode="multiplication"
+                  data-text="виконай множення"
+                >
+                  <span class="menu__icon">×</span>
+                  <span class="menu__text">Множення</span>
+                </li>
+                <li
+                  class="menu__item"
+                  data-mode="division"
+                  data-text="виконай ділення"
+                >
+                  <span class="menu__icon">÷</span>
+                  <span class="menu__text">Ділення</span>
+                </li>
+                <li
+                  class="menu__item"
+                  data-mode="make10"
+                  data-text="утвори 10"
+                >
+                  🎯 Утвори 10
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        </div>
+        <div class="game__container game__container--play hidden">
           <div class="game__box game__box--first"></div>
           <div class="game__box game__box--operator">×</div>
           <div class="game__box game__box--second"></div>
           <div class="game__box game__box--equals">=</div>
           <div class="game__box game__box--result"></div>
+          <input
+            class="game__input hidden"
+            name="resfield"
+            type="tel"
+            inputmode="numeric"
+            autofocus
+          />
         </div>
-        <div class="hidden container container math-actions">
-          <div
-            class="box math-action"
-            data-hover="+"
-          >
-            додавання
-          </div>
-          <div
-            class="box math-action"
-            data-hover="−"
-          >
-            віднімання
-          </div>
-          <div
-            class="box math-action active"
-            data-hover="·"
-          >
-            множення
-          </div>
-          <div
-            class="box math-action"
-            data-hover="∶"
-          >
-            ділення
-          </div>
-        </div>
-        <div class="exercise container">
-          <div
-            class="exercise__operand exercise__operand--first box firstnum"
-          ></div>
-          <div class="exercise__operator box operator">×</div>
-          <div
-            class="exercise__operand exercise__operand--second box secondnum"
-          ></div>
-          <div class="exercise__equals box">=</div>
-          <div class="exercise__result box result">
-            <input
-              class="exercise__input resfield"
-              name="resfield"
-              type="tel"
-              inputmode="numeric"
-              autofocus
-            />
-          </div>
-        </div>
-        <div class="container tips hidden">
-          <div class="box tip"></div>
-          <div class="box tip"></div>
-          <div class="box tip"></div>
+        <div class="game__container game__container--tips hidden">
+          <div class="game__box game__box--tip"></div>
+          <div class="game__box game__box--tip"></div>
+          <div class="game__box game__box--tip"></div>
         </div>
       </div>
     </main>
-    <script src="js/script.js"></script>
-    <script src="js/ui.js"></script>
+    <!-- <script src="js/script.js"></script> -->
+    <script src="js/game.js"></script>
   </body>
 </html>

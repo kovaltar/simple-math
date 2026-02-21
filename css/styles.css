@@ -1,5 +1,6 @@
+@charset "UTF-8";
 .page {
-  background-color: #EFF6FF;
+  background-color: #eff6ff;
 }
 
 .header {
@@ -110,23 +111,117 @@
   background-color: #dbeafe;
   cursor: pointer;
 }
-.menu .menu__icon {
+.menu__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   font-size: 20px;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #ffeb3b;
   color: #1e3a8a;
+  border: 1px solid #1e3a8a;
 }
 
 .menu.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  min-height: 100vh;
+}
+.game__container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 560px;
+}
+.game__container--start {
+  flex-direction: column;
+  gap: 0;
+}
+.game__container--play {
+  padding-bottom: 40px;
+}
+.game__container--tips {
+  position: relative;
+}
+.game__container--tips::before {
+  color: #1e3a8a;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+  top: -20px;
+  content: "Обери правильну відповідь:";
+}
+.game__input {
+  all: unset;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  line-height: normal;
+  cursor: text;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.game__input:focus {
+  outline: none;
+}
+.game__start-title {
+  color: #1e3a8a;
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.game__start-menu.open {
+  display: flex;
+  background-color: #eff6ff;
+  font-size: 24px;
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+.game__box {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  line-height: 1;
+  background: #ffffff;
+  border: 2px solid #bfdbfe;
+  color: #1e3a8a;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+}
+.game__box--tip {
+  background: #dbeafe;
+  border: 2px solid transparent;
+  border: 2px solid #ffffff;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.game__box--tip:hover {
+  background: #bfdbfe;
+  transform: scale(1.1);
 }
 
 .hidden {

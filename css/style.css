@@ -150,7 +150,7 @@
 
 @media (max-width: 480px) {
   .header {
-    margin: 50px auto;
+    margin: 0px auto;
   }
 
   .top-bar__title {
