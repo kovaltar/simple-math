@@ -1,24 +1,24 @@
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
-const menuItems = document.querySelectorAll('.menu__item');
-
+const menuItems = document.querySelectorAll(".menu__item");
 
 const gameModes = {
   addition: "+",
   subtraction: "−",
   multiplication: "·",
   division: "∶",
-  make10: 'make10',
+  make10: "+",
 };
 let mode = null;
 let modeValue = null;
 let modeText = null;
+let lang = null;
 
 const gameMenu = document.getElementById("gameMenu");
 const langMenu = document.getElementById("langMenu");
 
-const startDescriptionBox = document.querySelector('.game__start-title');
-const gameContainer = document.querySelector('.game__container--play');
+const startDescriptionBox = document.querySelector(".game__start-title");
+const gameContainer = document.querySelector(".game__container--play");
 
 const firstNumBox = document.querySelector(".game__box--first");
 const secondNumBox = document.querySelector(".game__box--second");
@@ -27,19 +27,9 @@ let firstNum = 0;
 let secondNum = 0;
 let result = 0;
 
-const operatorBox = document.querySelector('.game__box.game__box--operator');
+const operatorBox = document.querySelector(".game__box.game__box--operator");
 
 const resultBox = document.querySelector(".game__box--result");
-
-const inputHtml = `
-<input
-  class="game__input hidden resfield"
-  name="resfield"
-  type="tel"
-  inputmode="numeric"
-  autofocus
-/>
-`;
 const input = document.querySelector(".game__input");
 
 let inputValue = null;
@@ -63,8 +53,12 @@ function toggleMenu(menuElement, menuButton) {
   menuButton.setAttribute("aria-expanded", isOpen);
 }
 
-btnMenu.addEventListener("click", () => { toggleMenu(gameMenu, btnMenu); });
-btnLang.addEventListener("click", () => { toggleMenu(langMenu, btnLang); });
+btnMenu.addEventListener("click", () => {
+  toggleMenu(gameMenu, btnMenu);
+});
+btnLang.addEventListener("click", () => {
+  toggleMenu(langMenu, btnLang);
+});
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".menu") && !e.target.closest(".top-bar__btn")) {
@@ -75,72 +69,127 @@ document.addEventListener("click", (e) => {
   }
 });
 
+function selectMode(menuItem) {
+  menuItem.classList.add("active");
+  mode = menuItem.dataset.mode;
+  modeText = menuItem.dataset.text;
+  modeValue = gameModes[mode];
 
-menuItems.forEach((menuItem) => {
-  menuItem.addEventListener("click", () => {
-    menuItem.classList.add("active");
-    mode = menuItem.dataset.mode;
-    modeText = menuItem.dataset.text;
-    modeValue = gameModes[mode];
-    // console.log(`modeValue = ${modeValue}`);
-    operatorBox.innerText = modeValue;
-    startDescriptionBox.innerText = modeText;
-    gameMenu.classList.remove("open");
-    startMenu.classList.remove("open");
-    btnMenu.setAttribute("aria-expanded", false);
-    gameContainer.classList.remove('hidden');
-    hideTips();
-    setUp();
-  });
+  operatorBox.textContent = modeValue;
+  startDescriptionBox.textContent = modeText;
+
+  gameMenu.classList.remove("open");
+  startMenu.classList.remove("open");
+  langMenu.classList.remove("open");
+
+  btnMenu.setAttribute("aria-expanded", false);
+  btnLang.setAttribute("aria-expanded", false);
+
+  gameContainer.classList.remove("hidden");
+  hideTips();
+  setUp();
+}
+
+function selectLang(menuItem) {
+  menuItem.classList.add("active");
+  lang = menuItem.dataset.lang;
+  langMenu.classList.remove("open");
+  btnLang.setAttribute("aria-expanded", false);
+
+  console.log(`lang = ${lang}`);
+
+  return;
+}
+
+gameMenu.addEventListener("click", (e) => {
+  const item = e.target.closest(".menu__item");
+  if (!item) return;
+
+  selectMode(item);
+});
+
+startMenu.addEventListener("click", (e) => {
+  const item = e.target.closest(".menu__item");
+  if (!item) return;
+
+  selectMode(item);
+});
+
+langMenu.addEventListener("click", (e) => {
+  const item = e.target.closest(".menu__item");
+  if (!item) return;
+
+  selectLang(item);
 });
 
 function getRndNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function clearBoxes(nodeList) {
+  nodeList.forEach((node, i) => {
+    if (node.textContent !== "") {
+      node.textContent = "";
+      node.style.transform = 'scale(1.0)';
+      node.style.backgroundColor = '#dbeafe';
+    }
+  });
+}
+
 function setUp() {
   let num1 = getRndNum();
   let num2 = getRndNum();
-  // console.log(`num1 = ${num1}`);
-  // console.log(`num2 = ${num2}`);
-  const operator = modeValue;
 
-  // console.log(`operator = ${operator}`);
+  stylizeInputBox("normal");
 
-  resultBox.append(input);
-  input.classList.remove('hidden');
-
-  if (operator === "+") {
+  if (mode === "addition") {
     firstNum = num1;
     secondNum = num2;
     result = firstNum + secondNum;
-  } else if (operator === "·") {
+  } else if (mode === "multiplication") {
     firstNum = num1;
     secondNum = num2;
     result = firstNum * secondNum;
-  } else if (operator === "−") {
+  } else if (mode === "subtraction") {
     num1 = getRndNum(0, 20);
     num2 = getRndNum(0, 20);
     firstNum = Math.max(num1, num2);
     secondNum = Math.min(num1, num2);
     result = firstNum - secondNum;
-  } else if (operator === "∶") {
+  } else if (mode === "division") {
     const divisor = getRndNum(1, 10);
     const quotient = getRndNum(0, 10);
 
     firstNum = divisor * quotient;
     secondNum = divisor;
     result = quotient;
+  } else if (mode === "make10") {
+    firstNum = getRndNum(1, 9);
+    secondNum = 10;
+    result = 10 - firstNum;
   }
 
-  // console.log(`firstNum = ${firstNum}`);
-  // console.log(`secondNum = ${secondNum}`);
+  if (mode === "make10") {
+    secondNumBox.textContent = "";
+    secondNumBox.append(input);
+    firstNumBox.textContent = firstNum;
+    resultBox.textContent = secondNum;
+  } else {
+    resultBox.textContent = "";
+    resultBox.append(input);
+    firstNumBox.textContent = firstNum;
+    secondNumBox.textContent = secondNum;
+  }
 
-  firstNumBox.innerText = firstNum;
-  secondNumBox.innerText = secondNum;
+  input.classList.remove("hidden");
+  requestAnimationFrame(() => {
+    input.focus();
+  });
 }
 
 function showTips(num1, num2, res) {
+  clearBoxes(tipBoxes);
+
   const numMax = Math.max(num1, num2);
   const variants = new Set([res]);
 
@@ -165,7 +214,7 @@ function showTips(num1, num2, res) {
   const tipsArray = shuffle([...variants]);
 
   tipBoxes.forEach((tip, i) => {
-    tip.innerText = tipsArray[i];
+    tip.textContent = tipsArray[i];
   });
 
   if (tipsContainer.classList.contains("hidden")) {
@@ -182,37 +231,54 @@ function shuffle(arr) {
 }
 
 function hideTips() {
-  tipBoxes.forEach((tip, i) => {
-    if (tip.innerText !== "") {
-      tip.innerText = "";
-    }
-  });
+  clearBoxes(tipBoxes);
 
   if (!tipsContainer.classList.contains("hidden")) {
     tipsContainer.classList.add("hidden");
   }
 }
 
+function stylizeInputBox(condition) {
+  const box = input.parentNode;
+
+  if (box !== gameContainer) {
+    switch (condition) {
+      case "normal":
+        box.style.backgroundColor = "#FFFFFF";
+        box.style.borderColor = "#bfdbfe";
+        box.style.color = "#1e3a8a";
+        break;
+      case "correct":
+        box.style.backgroundColor = "#bbf7d0";
+        box.style.borderColor = "#22c55e";
+        box.style.color = "#166534";
+        break;
+      case "wrong":
+        box.style.backgroundColor = "#fecaca";
+        box.style.borderColor = "#ef4444";
+        box.style.color = "#7f1d1d";
+        break;
+      default:
+        return;
+    }
+  }
+}
+
 function submit() {
   if (inputValue === result) {
-    resultBox.style.backgroundColor = "#bbf7d0";
-    resultBox.style.borderColor = "#22c55e";
-    resultBox.style.color = "#166534";
+    stylizeInputBox("correct");
 
     setTimeout(function () {
       hideTips();
       setUp();
+      stylizeInputBox("normal");
 
-      resultBox.style.backgroundColor = "#FFFFFF";
-      resultBox.style.borderColor = "#bfdbfe";
-      resultBox.style.color = "#1e3a8a";
       input.value = "";
     }, 1000);
   } else {
     input.value = inputValue;
-    resultBox.style.backgroundColor = "#fecaca";
-    resultBox.style.borderColor = "#ef4444";
-    resultBox.style.color = "#7f1d1d";
+
+    stylizeInputBox("wrong");
 
     setTimeout(() => {
       input.value = "";
@@ -220,10 +286,6 @@ function submit() {
     }, 500);
   }
 }
-
-input.addEventListener("blur", () => {
-  input.focus();
-});
 
 input.focus();
 
@@ -236,9 +298,12 @@ input.addEventListener("keydown", (e) => {
 
 tipsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("game__box--tip")) {
-    // console.log("clicked", e.target.innerText);
-    inputValue = +e.target.innerText;
+    inputValue = +e.target.textContent;
     input.value = inputValue;
     submit();
   }
+});
+
+input.addEventListener("input", () => {
+  input.value = input.value.replace(/[^0-9]/g, "");
 });

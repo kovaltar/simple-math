@@ -9,10 +9,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="css/style.css"
-    />
+    /> -->
     <link
       rel="stylesheet"
       href="css/styles.css"
@@ -46,7 +46,7 @@
     <header class="header">
       <div class="top-bar">
         <svg
-          class="top-bar__icon"
+          class="top-bar__icon top-bar__icon--logo"
           xmlns="http://www.w3.org/2000/svg"
         >
           <use href="./images/logo.svg" />
@@ -87,6 +87,7 @@
           <ul class="menu__list">
             <li
               class="menu__item"
+              data-type="mode"
               data-mode="addition"
               data-text="виконай додавання"
             >
@@ -95,6 +96,7 @@
             </li>
             <li
               class="menu__item"
+              data-type="mode"
               data-mode="subtraction"
               data-text="виконай віднімання"
             >
@@ -103,6 +105,7 @@
             </li>
             <li
               class="menu__item"
+              data-type="mode"
               data-mode="multiplication"
               data-text="виконай множення"
             >
@@ -111,6 +114,7 @@
             </li>
             <li
               class="menu__item"
+              data-type="mode"
               data-mode="division"
               data-text="виконай ділення"
             >
@@ -119,6 +123,7 @@
             </li>
             <li
               class="menu__item"
+              data-type="mode"
               data-mode="make10"
               data-text="утвори 10"
             >
@@ -139,13 +144,15 @@
             <li
               class="menu__item"
               role="option"
-              data-lang="uk"
+              data-type="lang"
+              data-lang="ua"
             >
               UA
             </li>
             <li
               class="menu__item"
               role="option"
+              data-type="lang"
               data-lang="en"
             >
               EN
@@ -153,6 +160,7 @@
             <li
               class="menu__item"
               role="option"
+              data-type="lang"
               data-lang="pl"
             >
               PL
@@ -173,6 +181,7 @@
               <ul class="menu__list">
                 <li
                   class="menu__item"
+                  data-type="mode"
                   data-mode="addition"
                   data-text="виконай додавання"
                 >
@@ -181,6 +190,7 @@
                 </li>
                 <li
                   class="menu__item"
+                  data-type="mode"
                   data-mode="subtraction"
                   data-text="виконай віднімання"
                 >
@@ -189,6 +199,7 @@
                 </li>
                 <li
                   class="menu__item"
+                  data-type="mode"
                   data-mode="multiplication"
                   data-text="виконай множення"
                 >
@@ -197,6 +208,7 @@
                 </li>
                 <li
                   class="menu__item"
+                  data-type="mode"
                   data-mode="division"
                   data-text="виконай ділення"
                 >
@@ -205,6 +217,7 @@
                 </li>
                 <li
                   class="menu__item"
+                  data-type="mode"
                   data-mode="make10"
                   data-text="утвори 10"
                 >
