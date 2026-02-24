@@ -26,6 +26,8 @@ export function getLang() {
 }
 
 export function updateTexts(elements, gameMode) {
+  document.documentElement.lang = currentLang;
+  
   const texts = translations[currentLang];
   let solveText = '';
  

@@ -80,6 +80,7 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
   padding: 0 20px 20px 20px;
   background-color: #ffffff;
+  background-color: #e2eefd;
   color: #1e3a8a;
   font-size: 18px;
   font-weight: bold;
@@ -94,6 +95,11 @@
 }
 .menu__item {
   padding-top: 20px;
+}
+.menu__item-block {
+  display: flex;
+  justify-content: center;
+  line-height: 1.4;
 }
 .menu__item::after {
   content: "";
@@ -115,7 +121,7 @@
   color: #3b82f6;
   cursor: pointer;
 }
-.menu__item:hover > .menu__icon {
+.menu__item:hover .menu__icon {
   color: #3b82f6;
   border-color: #3b82f6;
 }
@@ -212,6 +218,7 @@
   display: block;
   border-radius: 10px;
   background-color: #fff;
+  background-color: #e2eefd;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid #bfdbfe;
   box-sizing: border-box;
