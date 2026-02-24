@@ -8,10 +8,10 @@
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+/* .header {
+  margin: 100px auto;
+} */
 
-.header {
-  /* margin: 100px auto; */
-}
 
 .top-bar__title {
   text-align: center;
@@ -65,6 +65,7 @@
 
 .hidden {
   visibility: hidden;
+  display: none;
 }
 
 .math-action {

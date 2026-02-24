@@ -7,13 +7,13 @@ $primary-light: #60a5fa;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 
     display: flex;
     flex-direction: column;
     // height: 100%;
     // height: 100vh;
-    overflow: hidden;
+    // overflow: hidden;
   }
 }
 
@@ -26,11 +26,11 @@ $primary-light: #60a5fa;
 
 .top-bar {
   display: flex;
-  // padding: 0 10px;
+  padding: 5px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient($primary, $primary-light);
-
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
   &__title {
     margin: 0;
@@ -94,11 +94,13 @@ $primary-light: #60a5fa;
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
+  // display: none;
+  transform: translateY(-10px) scale(0);
+  transform-origin: top;
   // transition: all 0.2s ease;
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.3s ease,
+    transform 0.3s ease;
 
   padding: 0 20px 20px 20px;
   background-color: #ffffff;
@@ -113,7 +115,7 @@ $primary-light: #60a5fa;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    // gap: 2px;
   }
 
   &__item {
@@ -125,9 +127,10 @@ $primary-light: #60a5fa;
     position: relative;
     bottom: -2px;
     display: block;
-    height: 1px;
+    height: 2px;
     width: 100%;
     background-color: #1e3a8a;
+    background-color: #3b82f6;
 
     transition: transform 0.3s;
     transform: scale(0);
@@ -139,8 +142,14 @@ $primary-light: #60a5fa;
   }
 
   &__item:hover {
-    background-color: #dbeafe;
+    // background-color: #dbeafe;
+    color: #3b82f6;
     cursor: pointer;
+  }
+
+  &__item:hover > .menu__icon {
+    color: #3b82f6;
+    border-color: #3b82f6;;
   }
 
   &__icon {
@@ -158,14 +167,23 @@ $primary-light: #60a5fa;
     border-radius: 12px;
     background: #ffeb3b;
     color: #1e3a8a;
-    border: 1px solid #1e3a8a;
+    border: 2px solid #1e3a8a;
+    box-sizing: border-box;
+  }
+
+  &__text {
+    margin-left: 10px;
   }
 }
 
 .menu.open {
+  display: block;
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+  border-radius: 10px;
 }
 
 .main {
@@ -181,10 +199,7 @@ $primary-light: #60a5fa;
 .game {
   display: flex;
   flex-direction: column;
-  // gap: 10px;
-  // justify-content: stretch;
   align-items: center;
-  // min-height: 100vh;
 
   &__container {
     display: flex;
@@ -206,6 +221,7 @@ $primary-light: #60a5fa;
 
     &--tips {
       position: relative;
+      margin-bottom: 20px;
 
       &::before {
         color: #1e3a8a;
@@ -214,7 +230,8 @@ $primary-light: #60a5fa;
         text-transform: uppercase;
         position: absolute;
         top: -20px;
-        content: "Обери правильну відповідь:";
+        // content: "Обери правильну відповідь:";
+        content: var(--tips-title);
       }
     }
   }
@@ -240,7 +257,16 @@ $primary-light: #60a5fa;
     }
   }
 
-  &__start-title {
+  &__title {
+    display: block;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #bfdbfe;
+    box-sizing: border-box;
+      
+    // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+    line-height: 2;
     color: #1e3a8a;
     font-size: 24px;
     text-transform: uppercase;
@@ -249,13 +275,15 @@ $primary-light: #60a5fa;
 
   &__start-menu.open {
     display: flex;
-    background-color: #eff6ff;
+    // background-color: #eff6ff;
     font-size: 24px;
     visibility: visible;
     opacity: 1;
     position: relative;
     align-items: center;
     justify-content: center;
+    border: 2px solid #bfdbfe;
+    box-sizing: border-box;
   }
 
   &__box {
@@ -274,6 +302,7 @@ $primary-light: #60a5fa;
     border: 2px solid #bfdbfe;
     color: #1e3a8a;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
     &--tip {
       background: #dbeafe;

@@ -1,6 +1,11 @@
+import { updateTexts } from './lang.js';
+import { initLang } from './lang.js';
+import { setLang } from './lang.js';
+
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
-const menuItems = document.querySelectorAll(".menu__item");
+
+const menuModeItems = document.querySelectorAll(".menu__item.menu__item--mode");
 
 const gameModes = {
   addition: "+",
@@ -9,6 +14,7 @@ const gameModes = {
   division: "∶",
   make10: "+",
 };
+
 let mode = null;
 let modeValue = null;
 let modeText = null;
@@ -17,7 +23,7 @@ let lang = null;
 const gameMenu = document.getElementById("gameMenu");
 const langMenu = document.getElementById("langMenu");
 
-const startDescriptionBox = document.querySelector(".game__start-title");
+const gameTitleBox = document.querySelector(".game__title");
 const gameContainer = document.querySelector(".game__container--play");
 
 const firstNumBox = document.querySelector(".game__box--first");
@@ -35,8 +41,15 @@ const input = document.querySelector(".game__input");
 let inputValue = null;
 const tipsContainer = document.querySelector(".game__container--tips");
 const tipBoxes = document.querySelectorAll(".game__box--tip");
-let arrForTips;
-const tips = [];
+
+const langChangeElements = {
+  gameTitleBox,
+  tipsContainer,
+  menuModeItems,
+};
+
+initLang();
+updateTexts(langChangeElements, mode);
 
 function toggleMenu(menuElement, menuButton) {
   const menus = [gameMenu, langMenu];
@@ -46,6 +59,10 @@ function toggleMenu(menuElement, menuButton) {
     if (menu !== menuElement) {
       menu.classList.remove("open");
       buttons[index].setAttribute("aria-expanded", false);
+    } else {
+      if (!gameContainer.classList.contains("hidden")) {
+        requestAnimationFrame(() => input.focus());
+      }
     }
   });
 
@@ -66,6 +83,9 @@ document.addEventListener("click", (e) => {
     langMenu.classList.remove("open");
     btnMenu.setAttribute("aria-expanded", false);
     btnLang.setAttribute("aria-expanded", false);
+    if (!gameContainer.classList.contains("hidden")) {
+      requestAnimationFrame(() => input.focus());
+    }
   }
 });
 
@@ -76,7 +96,7 @@ function selectMode(menuItem) {
   modeValue = gameModes[mode];
 
   operatorBox.textContent = modeValue;
-  startDescriptionBox.textContent = modeText;
+  gameTitleBox.textContent = modeText;
 
   gameMenu.classList.remove("open");
   startMenu.classList.remove("open");
@@ -93,12 +113,17 @@ function selectMode(menuItem) {
 function selectLang(menuItem) {
   menuItem.classList.add("active");
   lang = menuItem.dataset.lang;
+
+  setLang(lang);
+
+  updateTexts(langChangeElements, mode);
+
   langMenu.classList.remove("open");
   btnLang.setAttribute("aria-expanded", false);
 
-  console.log(`lang = ${lang}`);
-
-  return;
+  requestAnimationFrame(() => {
+    input.focus();
+  });
 }
 
 gameMenu.addEventListener("click", (e) => {
@@ -130,8 +155,8 @@ function clearBoxes(nodeList) {
   nodeList.forEach((node, i) => {
     if (node.textContent !== "") {
       node.textContent = "";
-      node.style.transform = 'scale(1.0)';
-      node.style.backgroundColor = '#dbeafe';
+      node.style.transform = "scale(1.0)";
+      node.style.backgroundColor = "#dbeafe";
     }
   });
 }

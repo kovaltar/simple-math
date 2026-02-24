@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .page__body {
   background-color: #eff6ff;
   margin: 0;
@@ -7,7 +6,6 @@
   font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .header {
@@ -18,9 +16,11 @@
 
 .top-bar {
   display: flex;
+  padding: 5px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(#3b82f6, #60a5fa);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .top-bar__title {
   margin: 0;
@@ -75,8 +75,9 @@
   right: 0px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(-10px) scale(0);
+  transform-origin: top;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   padding: 0 20px 20px 20px;
   background-color: #ffffff;
   color: #1e3a8a;
@@ -90,7 +91,6 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 .menu__item {
   padding-top: 20px;
@@ -100,9 +100,10 @@
   position: relative;
   bottom: -2px;
   display: block;
-  height: 1px;
+  height: 2px;
   width: 100%;
   background-color: #1e3a8a;
+  background-color: #3b82f6;
   transition: transform 0.3s;
   transform: scale(0);
   transform-origin: left;
@@ -111,8 +112,12 @@
   transform: scale(1);
 }
 .menu__item:hover {
-  background-color: #dbeafe;
+  color: #3b82f6;
   cursor: pointer;
+}
+.menu__item:hover > .menu__icon {
+  color: #3b82f6;
+  border-color: #3b82f6;
 }
 .menu__icon {
   display: inline-flex;
@@ -125,13 +130,20 @@
   border-radius: 12px;
   background: #ffeb3b;
   color: #1e3a8a;
-  border: 1px solid #1e3a8a;
+  border: 2px solid #1e3a8a;
+  box-sizing: border-box;
+}
+.menu__text {
+  margin-left: 10px;
 }
 
 .menu.open {
+  display: block;
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .main {
@@ -166,6 +178,7 @@
 }
 .game__container--tips {
   position: relative;
+  margin-bottom: 20px;
 }
 .game__container--tips::before {
   color: #1e3a8a;
@@ -174,7 +187,7 @@
   text-transform: uppercase;
   position: absolute;
   top: -20px;
-  content: "Обери правильну відповідь:";
+  content: var(--tips-title);
 }
 .game__input {
   all: unset;
@@ -195,7 +208,14 @@
 .game__input:focus {
   outline: none;
 }
-.game__start-title {
+.game__title {
+  display: block;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #bfdbfe;
+  box-sizing: border-box;
+  line-height: 2;
   color: #1e3a8a;
   font-size: 24px;
   text-transform: uppercase;
@@ -203,13 +223,14 @@
 }
 .game__start-menu.open {
   display: flex;
-  background-color: #eff6ff;
   font-size: 24px;
   visibility: visible;
   opacity: 1;
   position: relative;
   align-items: center;
   justify-content: center;
+  border: 2px solid #bfdbfe;
+  box-sizing: border-box;
 }
 .game__box {
   width: 50px;
@@ -226,6 +247,7 @@
   border: 2px solid #bfdbfe;
   color: #1e3a8a;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .game__box--tip {
   background: #dbeafe;

@@ -86,7 +86,7 @@
         <nav class="menu__nav">
           <ul class="menu__list">
             <li
-              class="menu__item"
+              class="menu__item menu__item--mode"
               data-type="mode"
               data-mode="addition"
               data-text="виконай додавання"
@@ -95,7 +95,7 @@
               <span class="menu__text">Додавання</span>
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--mode"
               data-type="mode"
               data-mode="subtraction"
               data-text="виконай віднімання"
@@ -104,7 +104,7 @@
               <span class="menu__text">Віднімання</span>
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--mode"
               data-type="mode"
               data-mode="multiplication"
               data-text="виконай множення"
@@ -113,7 +113,7 @@
               <span class="menu__text">Множення</span>
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--mode"
               data-type="mode"
               data-mode="division"
               data-text="виконай ділення"
@@ -122,12 +122,13 @@
               <span class="menu__text">Ділення</span>
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--mode"
               data-type="mode"
               data-mode="make10"
               data-text="утвори 10"
             >
-              🎯 Утвори 10
+              <span class="menu__icon">🎯</span>
+              <span class="menu__text">Утвори 10</span>
             </li>
           </ul>
         </nav>
@@ -142,15 +143,15 @@
             role="listbox"
           >
             <li
-              class="menu__item"
+              class="menu__item menu__item--lang"
               role="option"
               data-type="lang"
-              data-lang="ua"
+              data-lang="uk"
             >
               UA
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--lang"
               role="option"
               data-type="lang"
               data-lang="en"
@@ -158,7 +159,7 @@
               EN
             </li>
             <li
-              class="menu__item"
+              class="menu__item menu__item--lang"
               role="option"
               data-type="lang"
               data-lang="pl"
@@ -172,7 +173,7 @@
     <main class="main">
       <div class="game">
         <div class="game__container game__container--start">
-          <h2 class="game__start-title">вибери режим:</h2>
+          <h2 class="game__title">вибери режим:</h2>
           <aside
             id="startMenu"
             class="menu game__start-menu open"
@@ -180,7 +181,7 @@
             <nav class="menu__nav">
               <ul class="menu__list">
                 <li
-                  class="menu__item"
+                  class="menu__item menu__item--mode"
                   data-type="mode"
                   data-mode="addition"
                   data-text="виконай додавання"
@@ -189,7 +190,7 @@
                   <span class="menu__text">Додавання</span>
                 </li>
                 <li
-                  class="menu__item"
+                  class="menu__item menu__item--mode"
                   data-type="mode"
                   data-mode="subtraction"
                   data-text="виконай віднімання"
@@ -198,7 +199,7 @@
                   <span class="menu__text">Віднімання</span>
                 </li>
                 <li
-                  class="menu__item"
+                  class="menu__item menu__item--mode"
                   data-type="mode"
                   data-mode="multiplication"
                   data-text="виконай множення"
@@ -207,7 +208,7 @@
                   <span class="menu__text">Множення</span>
                 </li>
                 <li
-                  class="menu__item"
+                  class="menu__item menu__item--mode"
                   data-type="mode"
                   data-mode="division"
                   data-text="виконай ділення"
@@ -216,12 +217,13 @@
                   <span class="menu__text">Ділення</span>
                 </li>
                 <li
-                  class="menu__item"
+                  class="menu__item menu__item--mode"
                   data-type="mode"
                   data-mode="make10"
                   data-text="утвори 10"
                 >
-                  🎯 Утвори 10
+                  <span class="menu__icon">🎯</span>
+                  <span class="menu__text">Утвори 10</span>
                 </li>
               </ul>
             </nav>
@@ -235,9 +237,14 @@
           <div class="game__box game__box--result"></div>
           <input
             class="game__input hidden"
-            name="resfield"
-            type="tel"
+            type="text"
+            name="game-answer"
             inputmode="numeric"
+            pattern="[0-9]*"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
             autofocus
           />
         </div>
@@ -249,6 +256,9 @@
       </div>
     </main>
     <!-- <script src="js/script.js"></script> -->
-    <script src="js/game.js"></script>
+    <script
+      type="module"
+      src="js/game.js"
+    ></script>
   </body>
 </html>
