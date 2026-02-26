@@ -3,26 +3,30 @@ import { translations } from './translations.js';
 let currentLang = 'en';
 
 export function initLang() {
+  const userLang = localStorage.getItem('userLanguage');
+
+  if (userLang && translations[userLang]) {
+    currentLang = userLang;
+    return;
+  }
+  
   const browserLangs = navigator.languages || [navigator.language || 'en'];
 
-  for (const lang of browserLangs) {
-    const shortLang = lang.split('-')[0];
-    if (translations[shortLang]) {
-      currentLang = shortLang;
-      return;
-    }
-  }
-
-  currentLang = 'en';
+  currentLang =
+    browserLangs
+      .map(l => l.split('-')[0])
+      .find(l => translations[l]) || 'en';
 }
 
 export function setLang(langCode) {
-  if (!translations[langCode]) return;
-  currentLang = langCode;
-}
+  if (translations[langCode]) {
+    currentLang = langCode;
+    localStorage.setItem('userLanguage', currentLang);
 
-export function getLang() {
-  return currentLang;
+    return true;
+  }
+
+  return false;
 }
 
 export function updateTexts(elements, gameMode) {
