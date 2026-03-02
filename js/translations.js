@@ -2,6 +2,7 @@ export const translations = {
   uk: {
     modeTitle: "обери режим:",
     solveTitle: "виконай",
+    numbers: "числа",
     chooseAnswer: "обери правильну відповідь:",
     score: "рахунок",
     modes: {
@@ -10,11 +11,13 @@ export const translations = {
       multiplication: "множення",
       division: "ділення",
       make10: "утвори 10",
+      compare: "порівняй",
     },
   },
   en: {
     modeTitle: "choose mode:",
     solveTitle: "solve",
+    numbers: "numbers",
     chooseAnswer: "choose the correct answer:",
     score: "score",
     modes: {
@@ -23,11 +26,13 @@ export const translations = {
       multiplication: "multiplication",
       division: "division",
       make10: "make 10",
+      compare: "compare",
     },
   },
   pl: {
     modeTitle: "wybierz tryb:",
     solveTitle: "wykonaj",
+    numbers: "liczby",
     chooseAnswer: "wybierz prawidłową odpowiedź:",
     score: "wynik",
     modes: {
@@ -36,6 +41,7 @@ export const translations = {
       multiplication: "mnożenie",
       division: "dzielenie",
       make10: "utwórz 10",
+      compare: "porównaj",
     },
   },
 };

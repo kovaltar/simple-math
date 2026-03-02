@@ -1,6 +1,6 @@
-import { updateTexts } from './lang.js';
-import { initLang } from './lang.js';
-import { setLang } from './lang.js';
+import { updateTexts } from "./lang.js";
+import { initLang } from "./lang.js";
+import { setLang } from "./lang.js";
 
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
@@ -8,15 +8,17 @@ const btnLang = document.getElementById("langMenuToggle");
 const menuModeItems = document.querySelectorAll(".menu__item.menu__item--mode");
 
 const gameModes = {
-  addition: "+",
-  subtraction: "−",
-  multiplication: "·",
-  division: "∶",
-  make10: "+",
+  addition: { operator: "+", range: [0, 10] },
+  subtraction: { operator: "−", range: [0, 20] },
+  multiplication: { operator: "·", range: [0, 10] },
+  division: { operator: "∶", range: [1, 10] },
+  make10: { operator: "+", range: [1, 9] },
+  compare: { operator: "", range: [0, 100] },
 };
 
 let mode = null;
-let modeValue = null;
+let range = null;
+let operator = null;
 let modeText = null;
 let lang = null;
 
@@ -34,7 +36,7 @@ let secondNum = 0;
 let result = 0;
 
 const operatorBox = document.querySelector(".game__box.game__box--operator");
-
+const equalityBox = document.querySelector(".game__box.game__box--equals");
 const resultBox = document.querySelector(".game__box--result");
 const input = document.querySelector(".game__input");
 
@@ -93,9 +95,11 @@ function selectMode(menuItem) {
   menuItem.classList.add("active");
   mode = menuItem.dataset.mode;
   modeText = menuItem.dataset.text;
-  modeValue = gameModes[mode];
 
-  operatorBox.textContent = modeValue;
+  if (mode !== "compare") {
+    operator = gameModes[mode].operator;
+    operatorBox.textContent = operator;
+  }
   gameTitleBox.textContent = modeText;
 
   gameMenu.classList.remove("open");
@@ -147,7 +151,7 @@ langMenu.addEventListener("click", (e) => {
   selectLang(item);
 });
 
-function getRndNum(min = 0, max = 10) {
+function getRandNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -162,10 +166,15 @@ function clearBoxes(nodeList) {
 }
 
 function setUp() {
-  let num1 = getRndNum();
-  let num2 = getRndNum();
+  setupInput(mode);
 
-  stylizeInputBox("normal");
+  range = gameModes[mode].range;
+  const [minNum, maxNum] = range;
+  let num1 = getRandNum(minNum, maxNum);
+  let num2 =
+    mode === "division"
+      ? getRandNum(minNum - 1, maxNum)
+      : getRandNum(minNum, maxNum);
 
   if (mode === "addition") {
     firstNum = num1;
@@ -176,35 +185,52 @@ function setUp() {
     secondNum = num2;
     result = firstNum * secondNum;
   } else if (mode === "subtraction") {
-    num1 = getRndNum(0, 20);
-    num2 = getRndNum(0, 20);
     firstNum = Math.max(num1, num2);
     secondNum = Math.min(num1, num2);
     result = firstNum - secondNum;
   } else if (mode === "division") {
-    const divisor = getRndNum(1, 10);
-    const quotient = getRndNum(0, 10);
-
-    firstNum = divisor * quotient;
-    secondNum = divisor;
-    result = quotient;
+    firstNum = num1 * num2;
+    secondNum = num2;
+    result = num1;
   } else if (mode === "make10") {
-    firstNum = getRndNum(1, 9);
+    firstNum = num1;
     secondNum = 10;
     result = 10 - firstNum;
+  } else if (mode === "compare") {
+    firstNum = num1;
+    secondNum = num2;
+    const delta = firstNum - secondNum;
+    result = delta === 0 ? "=" : delta > 0 ? ">" : "<";
   }
 
-  if (mode === "make10") {
-    secondNumBox.textContent = "";
-    secondNumBox.append(input);
-    firstNumBox.textContent = firstNum;
-    resultBox.textContent = secondNum;
-  } else {
-    resultBox.textContent = "";
-    resultBox.append(input);
+  if (mode === "compare") {
+    showTips();
     firstNumBox.textContent = firstNum;
     secondNumBox.textContent = secondNum;
+    operatorBox.textContent = "";
+    operatorBox.append(input);
+    equalityBox.classList.add("hidden");
+    resultBox.classList.add("hidden");
+  } else {
+    equalityBox.classList.remove("hidden");
+    resultBox.classList.remove("hidden");
+
+    if (mode === "make10") {
+      secondNumBox.textContent = "";
+      secondNumBox.append(input);
+      firstNumBox.textContent = firstNum;
+      resultBox.textContent = secondNum;
+    } else {
+      resultBox.textContent = "";
+      resultBox.textContent = "";
+      resultBox.textContent = "";
+      resultBox.append(input);
+      firstNumBox.textContent = firstNum;
+      secondNumBox.textContent = secondNum;
+    }
   }
+
+  stylizeInputBox("normal");
 
   input.classList.remove("hidden");
   requestAnimationFrame(() => {
@@ -215,28 +241,34 @@ function setUp() {
 function showTips(num1, num2, res) {
   clearBoxes(tipBoxes);
 
-  const numMax = Math.max(num1, num2);
-  const variants = new Set([res]);
+  let tipsArray = [];
 
-  const minLower = Math.max(0, res - numMax);
-  const maxLower = res - 1;
+  if (arguments.length) {
+    const numMax = Math.max(num1, num2);
+    const variants = new Set([res]);
 
-  const minUpper = res + 1;
-  const maxUpper = res + numMax;
+    const minLower = Math.max(0, res - numMax);
+    const maxLower = res - 1;
 
-  while (variants.size < 3) {
-    let random;
+    const minUpper = res + 1;
+    const maxUpper = res + numMax;
 
-    if (Math.random() < 0.5 && minLower <= maxLower) {
-      random = getRndNum(minLower, maxLower);
-    } else {
-      random = getRndNum(minUpper, maxUpper);
+    while (variants.size < 3) {
+      let random;
+
+      if (Math.random() < 0.5 && minLower <= maxLower) {
+        random = getRandNum(minLower, maxLower);
+      } else {
+        random = getRandNum(minUpper, maxUpper);
+      }
+
+      variants.add(random);
     }
 
-    variants.add(random);
+    tipsArray = shuffle([...variants]);
+  } else {
+    tipsArray = ["<", "=", ">"];
   }
-
-  const tipsArray = shuffle([...variants]);
 
   tipBoxes.forEach((tip, i) => {
     tip.textContent = tipsArray[i];
@@ -289,6 +321,16 @@ function stylizeInputBox(condition) {
   }
 }
 
+function setupInput(mode) {
+  if (mode !== "compare") {
+    input.inputMode = "numeric";
+    input.pattern = "^\\d+$";
+  } else {
+    input.inputMode = "text";
+    input.pattern = "^[><=]$";
+  }
+}
+
 function submit() {
   if (inputValue === result) {
     stylizeInputBox("correct");
@@ -307,7 +349,10 @@ function submit() {
 
     setTimeout(() => {
       input.value = "";
-      showTips(firstNum, secondNum, result);
+
+      if (mode !== "compare") {
+        showTips(firstNum, secondNum, result);
+      }
     }, 500);
   }
 }
@@ -316,19 +361,24 @@ input.focus();
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    inputValue = +input.value;
+    inputValue = mode === 'compare' ? input.value : +input.value;
     submit();
   }
 });
 
 tipsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("game__box--tip")) {
-    inputValue = +e.target.textContent;
+    const iv = e.target.textContent;
+    inputValue = mode === "compare" ? iv : +iv;
     input.value = inputValue;
     submit();
   }
 });
 
 input.addEventListener("input", () => {
-  input.value = input.value.replace(/[^0-9]/g, "");
+  if (mode === "compare") {
+    input.value = input.value.replace(/[^<=>]/g, "").slice(0, 1);
+  } else {
+    input.value = input.value.replace(/[^0-9]/g, "");
+  }
 });

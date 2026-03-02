@@ -125,8 +125,9 @@ $primary-light: #60a5fa;
 
   &__item-block {
     display: flex;
-    justify-content: center;
-    line-height: 1.4;
+    align-items: center;
+    // justify-content: center;
+    // line-height: 1.4;
   }
 
   &__item::after {
@@ -207,6 +208,7 @@ $primary-light: #60a5fa;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 310px;
 
   &__container {
     display: flex;
@@ -331,6 +333,7 @@ $primary-light: #60a5fa;
 }
 
 .hidden {
+  display: none;
   visibility: hidden;
   height: 0;
   width: 0;

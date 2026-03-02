@@ -34,10 +34,19 @@ export function updateTexts(elements, gameMode) {
   
   const texts = translations[currentLang];
   let solveText = '';
+  let nums = '';
  
   if (gameMode) {
-    solveText = gameMode === 'make10' ? '' : `${texts.solveTitle} `;
-    elements.gameTitleBox.textContent = `${solveText}${texts.modes[gameMode]}`;
+    if (gameMode === 'compare') {
+
+    }
+
+    console.log(`gameMode = ${gameMode}`);
+
+    solveText = (gameMode === 'make10' || gameMode === 'compare') ? '' : `${texts.solveTitle}`;
+    nums = gameMode === 'compare' ? texts.numbers : '';
+
+    elements.gameTitleBox.textContent = `${solveText} ${texts.modes[gameMode]} ${nums}`.trim();
   } else {
     elements.gameTitleBox.textContent = texts.modeTitle;
   }
@@ -52,9 +61,11 @@ export function updateTexts(elements, gameMode) {
   Array.prototype.forEach.call(menuList, menuItem => {
     const menuItemMode = menuItem.dataset.mode;
     const menuItemText = menuItem.querySelector('.menu__text');
-    solveText = menuItemMode === 'make10' ? '' : `${texts.solveTitle} `;
 
-    menuItem.dataset.text = `${solveText}${texts.modes[menuItemMode]}`;
+    nums = menuItemMode === 'compare' ? texts.numbers : '';
+    solveText = (menuItemMode === 'make10' || menuItemMode === 'compare') ? '' : `${texts.solveTitle}`;
+
+    menuItem.dataset.text = `${solveText} ${texts.modes[menuItemMode]} ${nums}`.trim();
     menuItemText.textContent = texts.modes[menuItemMode];
     console.log(`menuItem.dataset.text = ${menuItem.dataset.text}`);
   });
