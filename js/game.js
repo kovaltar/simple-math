@@ -7,22 +7,19 @@ const menuModeItems = document.querySelectorAll(".menu__item.menu__item--mode");
 
 const gameState = {
   mode: null,
-  gameTitle: '',
-  firstNum:  null,
+  gameTitle: "",
+  firstNum: null,
   secondNum: null,
   result: null,
-  lang: 'en',
-  inputValue: '',
+  lang: "en",
+  inputValue: "",
 };
 
 const gameModes = {
   addition: {
     operator: "+",
     range: [0, 10],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a + b,
   },
 
@@ -40,10 +37,7 @@ const gameModes = {
   multiplication: {
     operator: "·",
     range: [0, 10],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a * b,
   },
 
@@ -71,12 +65,8 @@ const gameModes = {
   compare: {
     operator: "",
     range: [0, 100],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
-    calc: (a, b) =>
-      a === b ? "=" : a > b ? ">" : "<",
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
+    calc: (a, b) => (a === b ? "=" : a > b ? ">" : "<"),
   },
 };
 
@@ -231,10 +221,8 @@ function clearBoxes(nodeList) {
 function setUp() {
   setupInput(gameState.mode);
 
-  const { operator, range, generate, calc } = gameModes[gameState.mode];
+  const { range, generate, calc } = gameModes[gameState.mode];
   const [min, max] = range;
-
-  operatorBox.textContent = operator;
 
   [gameState.firstNum, gameState.secondNum] = generate(min, max);
   gameState.result = calc(gameState.firstNum, gameState.secondNum);
@@ -243,19 +231,34 @@ function setUp() {
 }
 
 function renderGame() {
-  firstNumBox.textContent = gameState.firstNum;
-  secondNumBox.textContent = gameState.secondNum;
+  const { mode, firstNum, secondNum } = gameState;
+  const { operator } = gameModes[mode];
 
-  if (gameState.mode === "compare") {
+  firstNumBox.textContent = firstNum;
+  secondNumBox.textContent = secondNum;
+
+  equalityBox.classList.remove("hidden");
+  resultBox.classList.remove("hidden");
+
+  if (mode === "compare") {
     showTips();
+
+    operatorBox.textContent = "";
     operatorBox.append(input);
+
     equalityBox.classList.add("hidden");
     resultBox.classList.add("hidden");
   } else {
-    equalityBox.classList.remove("hidden");
-    resultBox.classList.remove("hidden");
-    resultBox.textContent = "";
-    resultBox.append(input);
+    operatorBox.textContent = operator;
+
+    if (mode === "make10") {
+      secondNumBox.textContent = "";
+      secondNumBox.append(input);
+      resultBox.textContent = secondNum;
+    } else {
+      resultBox.textContent = "";
+      resultBox.append(input);
+    }
   }
 
   stylizeInputBox("normal");
@@ -392,7 +395,8 @@ input.focus();
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    gameState.inputValue = gameState.mode === "compare" ? input.value : +input.value;
+    gameState.inputValue =
+      gameState.mode === "compare" ? input.value : +input.value;
     submit();
   }
 });
@@ -407,4 +411,3 @@ tipsContainer.addEventListener("click", (e) => {
 });
 
 input.addEventListener("input", filterInput);
-
