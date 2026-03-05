@@ -47,7 +47,7 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 22px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -116,11 +116,11 @@
 .menu__item:hover::after {
   transform: scale(1);
 }
-.menu__item:hover {
+.menu__item:hover, .menu__item.active {
   color: #3b82f6;
   cursor: pointer;
 }
-.menu__item:hover .menu__icon {
+.menu__item:hover .menu__icon, .menu__item.active .menu__icon {
   color: #3b82f6;
   border-color: #3b82f6;
 }
@@ -256,6 +256,16 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+.game__box--correct {
+  background-color: #bbf7d0;
+  border-color: #22c55e;
+  color: #166534;
+}
+.game__box--wrong {
+  background-color: #fecaca;
+  border-color: #ef4444;
+  color: #7f1d1d;
+}
 .game__box--tip {
   background: #dbeafe;
   border: 2px solid transparent;
@@ -264,7 +274,7 @@
   cursor: pointer;
   transition: transform 0.15s ease, background 0.2s ease;
 }
-.game__box--tip:hover {
+.game__box--tip:hover, .game__box--tip.active {
   background: #bfdbfe;
   transform: scale(1.1);
 }

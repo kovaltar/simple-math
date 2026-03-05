@@ -11,10 +11,7 @@ const gameModes = {
   addition: {
     operator: "+",
     range: [0, 10],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a + b,
   },
 
@@ -32,10 +29,7 @@ const gameModes = {
   multiplication: {
     operator: "·",
     range: [0, 10],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a * b,
   },
 
@@ -63,12 +57,8 @@ const gameModes = {
   compare: {
     operator: "",
     range: [0, 100],
-    generate: (min, max) => [
-      getRandNum(min, max),
-      getRandNum(min, max),
-    ],
-    calc: (a, b) =>
-      a === b ? "=" : a > b ? ">" : "<",
+    generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
+    calc: (a, b) => (a === b ? "=" : a > b ? ">" : "<"),
   },
 };
 

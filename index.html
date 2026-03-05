@@ -9,10 +9,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="css/style.css"
-    /> -->
     <link
       rel="stylesheet"
       href="css/styles.css"
@@ -58,6 +54,9 @@
             id="gameMenuToggle"
             aria-expanded="false"
             aria-controls="gameMenu"
+            aria-label="Game modes"
+            data-i18n="menu.gameModes"
+            data-i18n-attr="aria-label"
           >
             <svg class="top-bar__icon">
               <use href="./images/icon-burger-menu.svg#icon-menu"></use>
@@ -69,13 +68,10 @@
             aria-haspopup="listbox"
             aria-expanded="false"
             aria-controls="langMenu"
+            aria-label="Select language"
+            data-i18n="menu.languages"
+            data-i18n-attr="aria-label"
           >
-            <svg
-              class="top-bar__icon"
-              viewBox="0 0 24 24"
-            >
-              <use href="./images/icon-lang.svg#icon-lang" />
-            </svg>
           </button>
         </div>
       </div>
@@ -87,53 +83,55 @@
           <ul class="menu__list">
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="addition"
-              data-text="виконай додавання"
             >
               <div class="menu__item-block">
                 <span class="menu__icon">+</span>
-                <span class="menu__text">Додавання</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.addition.name"
+                ></span>
               </div>
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="subtraction"
-              data-text="виконай віднімання"
             >
               <div class="menu__item-block">
                 <span class="menu__icon">−</span>
-                <span class="menu__text">Віднімання</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.subtraction.name"
+                ></span>
               </div>
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="multiplication"
-              data-text="виконай множення"
             >
               <div class="menu__item-block">
                 <span class="menu__icon">×</span>
-                <span class="menu__text">Множення</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.multiplication.name"
+                ></span>
               </div>
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="division"
-              data-text="виконай ділення"
             >
               <div class="menu__item-block">
                 <span class="menu__icon">÷</span>
-                <span class="menu__text">Ділення</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.division.name"
+                ></span>
               </div>
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="make10"
-              data-text="утвори 10"
             >
               <div class="menu__item-block">
                 <svg
@@ -142,15 +140,15 @@
                 >
                   <use href="./images/10.svg" />
                 </svg>
-                <!-- <span class="menu__icon">🎯</span> -->
-                <span class="menu__text">Утвори 10</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.make10.name"
+                ></span>
               </div>
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-type="mode"
               data-mode="compare"
-              data-text="порівняй числа"
             >
               <div class="menu__item-block">
                 <svg
@@ -159,7 +157,10 @@
                 >
                   <use href="./images/compare.svg" />
                 </svg>
-                <span class="menu__text">порівняй числа</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.compare.name"
+                ></span>
               </div>
             </li>
           </ul>
@@ -168,6 +169,7 @@
       <aside
         class="menu"
         id="langMenu"
+        role="presentation"
       >
         <nav class="menu__nav">
           <ul
@@ -177,7 +179,7 @@
             <li
               class="menu__item menu__item--lang"
               role="option"
-              data-type="lang"
+              aria-selected="false"
               data-lang="uk"
             >
               <div class="menu__item-block">
@@ -190,7 +192,7 @@
             <li
               class="menu__item menu__item--lang"
               role="option"
-              data-type="lang"
+              aria-selected="false"
               data-lang="en"
             >
               <div class="menu__item-block">
@@ -203,7 +205,7 @@
             <li
               class="menu__item menu__item--lang"
               role="option"
-              data-type="lang"
+              aria-selected="false"
               data-lang="pl"
             >
               <div class="menu__item-block">
@@ -220,7 +222,10 @@
     <main class="main">
       <div class="game">
         <div class="game__container game__container--start">
-          <h2 class="game__title">вибери режим:</h2>
+          <h2
+            class="game__title"
+            data-i18n="modeTitle"
+          ></h2>
           <aside
             id="startMenu"
             class="menu game__start-menu open"
@@ -229,51 +234,55 @@
               <ul class="menu__list">
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="addition"
-                  data-text="виконай додавання"
                 >
                   <div class="menu__item-block">
                     <span class="menu__icon">+</span>
-                    <span class="menu__text">Додавання</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.addition.name"
+                    ></span>
                   </div>
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="subtraction"
-                  data-text="виконай віднімання"
                 >
                   <div class="menu__item-block">
                     <span class="menu__icon">−</span>
-                    <span class="menu__text">Віднімання</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.subtraction.name"
+                    ></span>
                   </div>
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="multiplication"
-                  data-text="виконай множення"
                 >
                   <div class="menu__item-block">
                     <span class="menu__icon">×</span>
-                    <span class="menu__text">Множення</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.multiplication.name"
+                    ></span>
                   </div>
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="division"
-                  data-text="виконай ділення"
                 >
-                  <span class="menu__icon">÷</span
-                  ><span class="menu__text">Ділення</span>
+                  <div class="menu__item-block">
+                    <span class="menu__icon">÷</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.division.name"
+                    ></span>
+                  </div>
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="make10"
-                  data-text="утвори 10"
                 >
                   <div class="menu__item-block">
                     <svg
@@ -282,15 +291,15 @@
                     >
                       <use href="./images/10.svg" />
                     </svg>
-                    <!-- <span class="menu__icon">🎯</span> -->
-                    <span class="menu__text">Утвори 10</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.make10.name"
+                    ></span>
                   </div>
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-type="mode"
                   data-mode="compare"
-                  data-text="порівняй числа"
                 >
                   <div class="menu__item-block">
                     <svg
@@ -299,7 +308,10 @@
                     >
                       <use href="./images/compare.svg" />
                     </svg>
-                    <span class="menu__text">порівняй числа</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.compare.name"
+                    ></span>
                   </div>
                 </li>
               </ul>
@@ -325,7 +337,12 @@
             autofocus
           />
         </div>
-        <div class="game__container game__container--tips hidden">
+        <div
+          class="game__container game__container--tips hidden"
+          data-i18n="chooseAnswer"
+          data-i18n-attr="css-var"
+          data-css-var="--tips-title"
+        >
           <div class="game__box game__box--tip"></div>
           <div class="game__box game__box--tip"></div>
           <div class="game__box game__box--tip"></div>

@@ -1,13 +1,13 @@
-import { updateTexts, initLang, setLang } from "./lang.js";
+import { langLabels, getLang, initLang, setLang, translateText } from "./lang.js";
 
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
 
-const menuModeItems = document.querySelectorAll(".menu__item.menu__item--mode");
+const menuModeItems = document.querySelectorAll(".menu__item--mode");
+const langMenuItems = document.querySelectorAll(".menu__item--lang");
 
 const gameState = {
   mode: null,
-  gameTitle: "",
   firstNum: null,
   secondNum: null,
   result: null,
@@ -97,14 +97,22 @@ const input = document.querySelector(".game__input");
 const tipsContainer = document.querySelector(".game__container--tips");
 const tipBoxes = document.querySelectorAll(".game__box--tip");
 
-const langChangeElements = {
-  gameTitleBox,
-  tipsContainer,
-  menuModeItems,
-};
-
 initLang();
-updateTexts(langChangeElements, gameState.mode);
+translateText();
+setActiveLangMenu();
+
+function setActiveLangMenu() {
+  const lang = getLang();
+
+  langMenuItems.forEach((item) => {
+    const isActive = item.dataset.lang === lang;
+    
+    item.classList.toggle('active', isActive);
+    item.toggleAttribute('aria-selected', isActive);
+  });
+
+  btnLang.textContent = langLabels[lang];
+}
 
 function toggleMenu(menuElement, menuButton) {
   const menus = [gameMenu, langMenu];
@@ -145,22 +153,21 @@ document.addEventListener("click", (e) => {
 });
 
 function selectMode(menuItem) {
-  menuItem.classList.add("active");
-  gameState.mode = menuItem.dataset.mode;
-  gameState.gameTitle = menuItem.dataset.text;
+  const mode = menuItem.dataset.mode;
 
-  if (gameState.mode !== "compare") {
-    gameState.operator = gameModes[gameState.mode].operator;
-    operatorBox.textContent = gameState.operator;
-  }
-  gameTitleBox.textContent = gameState.gameTitle;
+  menuModeItems.forEach((item) => {
+    const activeMode = item.dataset.mode === mode;
+    item.classList.toggle("active", activeMode);
+    item.toggleAttribute("aria-selected", activeMode);
+  });
 
-  gameMenu.classList.remove("open");
-  startMenu.classList.remove("open");
-  langMenu.classList.remove("open");
+  gameState.mode = mode;
 
-  btnMenu.setAttribute("aria-expanded", false);
-  btnLang.setAttribute("aria-expanded", false);
+  gameTitleBox.dataset.i18n = `modes.${mode}.title`;
+  translateText(gameTitleBox);
+
+  [gameMenu, startMenu, langMenu].forEach(menu => menu.classList.remove("open"));
+  [btnMenu, btnLang].forEach(btn => btn.setAttribute("aria-expanded", false));
 
   gameContainer.classList.remove("hidden");
   hideTips();
@@ -168,12 +175,13 @@ function selectMode(menuItem) {
 }
 
 function selectLang(menuItem) {
-  menuItem.classList.add("active");
-  gameState.lang = menuItem.dataset.lang;
+  const lang = menuItem.dataset.lang;
 
-  setLang(gameState.lang);
-
-  updateTexts(langChangeElements, gameState.mode);
+  if (setLang(lang)) {
+    gameState.lang = lang;
+    translateText();
+    setActiveLangMenu();
+  }
 
   langMenu.classList.remove("open");
   btnLang.setAttribute("aria-expanded", false);
@@ -210,11 +218,8 @@ function getRandNum(min = 0, max = 10) {
 
 function clearBoxes(nodeList) {
   nodeList.forEach((node, i) => {
-    if (node.textContent !== "") {
-      node.textContent = "";
-      node.style.transform = "scale(1.0)";
-      node.style.backgroundColor = "#dbeafe";
-    }
+    node.textContent = "";
+    node.classList.remove("active");
   });
 }
 
@@ -233,6 +238,8 @@ function setUp() {
 function renderGame() {
   const { mode, firstNum, secondNum } = gameState;
   const { operator } = gameModes[mode];
+
+  setInputBoxStyles("normal");
 
   firstNumBox.textContent = firstNum;
   secondNumBox.textContent = secondNum;
@@ -261,7 +268,6 @@ function renderGame() {
     }
   }
 
-  stylizeInputBox("normal");
   input.value = "";
   input.classList.remove("hidden");
 
@@ -325,29 +331,15 @@ function hideTips() {
   }
 }
 
-function stylizeInputBox(condition) {
+function setInputBoxStyles(state) {
   const box = input.parentNode;
 
-  if (box !== gameContainer) {
-    switch (condition) {
-      case "normal":
-        box.style.backgroundColor = "#FFFFFF";
-        box.style.borderColor = "#bfdbfe";
-        box.style.color = "#1e3a8a";
-        break;
-      case "correct":
-        box.style.backgroundColor = "#bbf7d0";
-        box.style.borderColor = "#22c55e";
-        box.style.color = "#166534";
-        break;
-      case "wrong":
-        box.style.backgroundColor = "#fecaca";
-        box.style.borderColor = "#ef4444";
-        box.style.color = "#7f1d1d";
-        break;
-      default:
-        return;
-    }
+  if (!box.classList.contains("game__box")) return;
+
+  box.classList.remove("game__box--wrong", "game__box--correct");
+
+  if (state !== "normal") {
+    box.classList.add(`game__box--${state}`);
   }
 }
 
@@ -367,19 +359,19 @@ function filterInput() {
 
 function submit() {
   if (gameState.inputValue === gameState.result) {
-    stylizeInputBox("correct");
+    setInputBoxStyles("correct");
 
     setTimeout(function () {
       hideTips();
       setUp();
-      stylizeInputBox("normal");
+      setInputBoxStyles("normal");
 
       input.value = "";
     }, 1000);
   } else {
     input.value = gameState.inputValue;
 
-    stylizeInputBox("wrong");
+    setInputBoxStyles("wrong");
 
     setTimeout(() => {
       input.value = "";
@@ -403,6 +395,7 @@ input.addEventListener("keydown", (e) => {
 
 tipsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("game__box--tip")) {
+    e.target.classList.add("active");
     const iv = e.target.textContent;
     gameState.inputValue = gameState.mode === "compare" ? iv : +iv;
     input.value = gameState.inputValue;
