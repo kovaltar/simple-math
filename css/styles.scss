@@ -1,8 +1,6 @@
 $primary: #3b82f6;
 $primary-light: #60a5fa;
 
-/* test */
-
 .page {
   &__body {
     background-color: #eff6ff;
@@ -206,7 +204,7 @@ $primary-light: #60a5fa;
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .game {
@@ -301,7 +299,6 @@ $primary-light: #60a5fa;
     justify-content: center;
     border: 2px solid #bfdbfe;
     box-sizing: border-box;
-    margin-bottom: 15px;
   }
 
   &__box {
