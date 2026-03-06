@@ -22,6 +22,7 @@ $primary-light: #60a5fa;
 }
 
 .top-bar {
+  position: relative;
   display: flex;
   padding: 5px;
   align-items: center;
@@ -50,13 +51,13 @@ $primary-light: #60a5fa;
     background: none;
     cursor: pointer;
     color: #ffffff;
-    width: 50px;
-    height: 50px;
+    width:40px;
+    height: 40px;
     display: flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     transition: transform 0.2s ease;
 
@@ -78,20 +79,26 @@ $primary-light: #60a5fa;
     display: block;
 
     &--logo {
-      padding: 13px;
+      padding: 8px;
     }
   }
 }
 
 .menu {
-  position: absolute;
-  top: 100%;
+  will-change: transform, opacity;
+  position: fixed;
+  // position: absolute;
+
+  top: 50px;
   right: 0px;
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px) scale(0);
-  transform-origin: top;
+
+  transform: translateY(-10px);
+  // transform: translateY(-10px) scale(0.01);
+
+  transform-origin: top right;
   // transition: all 0.2s ease;
   transition:
     opacity 0.3s ease,
@@ -178,10 +185,13 @@ $primary-light: #60a5fa;
 }
 
 .menu.open {
-  display: block;
+  // display: block;
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+
+  // transform: translateY(0) scale(1);
+  transform: translateY(0);
+
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
   border-radius: 10px;
@@ -260,6 +270,7 @@ $primary-light: #60a5fa;
   }
 
   &__title {
+    margin-block: 15px;
     display: block;
     border-radius: 10px;
     background-color: #fff;
@@ -278,6 +289,7 @@ $primary-light: #60a5fa;
 
   &__start-menu.open {
     display: flex;
+    top: 0;
     // background-color: #eff6ff;
     font-size: 24px;
     visibility: visible;
@@ -287,6 +299,7 @@ $primary-light: #60a5fa;
     justify-content: center;
     border: 2px solid #bfdbfe;
     box-sizing: border-box;
+    margin-bottom: 15px;
   }
 
   &__box {
