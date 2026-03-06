@@ -1,0 +1,41 @@
+name: Build and Deploy Sass
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'css/**/*.scss'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Sass
+        run: npm install -g sass
+
+      - name: Compile SCSS
+        run: sass css/styles.scss css/styles.css
+
+      - name: Commit CSS
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add css/styles.css
+          git commit -m "Auto compile Sass" || echo "No changes"
+          git push
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: .
