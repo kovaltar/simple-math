@@ -1,0 +1,358 @@
+<!doctype html>
+<html
+  class="page"
+  lang="en"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="css/styles.css"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon shortcut"
+      href="images/logo.svg"
+      type="image/svg+xml"
+    />
+    <title>Simple Math</title>
+  </head>
+
+  <body class="page__body">
+    <header class="header">
+      <div class="top-bar">
+        <svg
+          class="top-bar__icon top-bar__icon--logo"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <use href="./images/logo.svg" />
+        </svg>
+        <h1 class="top-bar__title">Simple Math</h1>
+        <div class="top-bar__buttons">
+          <button
+            class="top-bar__btn"
+            id="gameMenuToggle"
+            aria-expanded="false"
+            aria-controls="gameMenu"
+            aria-label="Game modes"
+            data-i18n="menu.gameModes"
+            data-i18n-attr="aria-label"
+          >
+            <svg class="top-bar__icon">
+              <use href="./images/icon-burger-menu.svg#icon-menu"></use>
+            </svg>
+          </button>
+          <button
+            class="top-bar__btn"
+            id="langMenuToggle"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="langMenu"
+            aria-label="Select language"
+            data-i18n="menu.languages"
+            data-i18n-attr="aria-label"
+          >
+          </button>
+        </div>
+      </div>
+      <aside
+        id="gameMenu"
+        class="menu"
+      >
+        <nav class="menu__nav">
+          <ul class="menu__list">
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="addition"
+            >
+              <div class="menu__item-block">
+                <span class="menu__icon">+</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.addition.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="subtraction"
+            >
+              <div class="menu__item-block">
+                <span class="menu__icon">−</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.subtraction.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="multiplication"
+            >
+              <div class="menu__item-block">
+                <span class="menu__icon">×</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.multiplication.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="division"
+            >
+              <div class="menu__item-block">
+                <span class="menu__icon">÷</span>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.division.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="make10"
+            >
+              <div class="menu__item-block">
+                <svg
+                  class="menu__icon"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="./images/10.svg" />
+                </svg>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.make10.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="compare"
+            >
+              <div class="menu__item-block">
+                <svg
+                  class="menu__icon"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="./images/compare.svg" />
+                </svg>
+                <span
+                  class="menu__text"
+                  data-i18n="modes.compare.name"
+                ></span>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <aside
+        class="menu"
+        id="langMenu"
+        role="presentation"
+      >
+        <nav class="menu__nav">
+          <ul
+            class="menu__list"
+            role="listbox"
+          >
+            <li
+              class="menu__item menu__item--lang"
+              role="option"
+              aria-selected="false"
+              data-lang="uk"
+            >
+              <div class="menu__item-block">
+                <svg class="menu__icon">
+                  <use href="./images/lang-flags-icon.svg#flag-ua"></use>
+                </svg>
+                <span class="menu__text">UA</span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--lang"
+              role="option"
+              aria-selected="false"
+              data-lang="en"
+            >
+              <div class="menu__item-block">
+                <svg class="menu__icon">
+                  <use href="./images/lang-flags-icon.svg#flag-en"></use>
+                </svg>
+                <span class="menu__text">EN</span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--lang"
+              role="option"
+              aria-selected="false"
+              data-lang="pl"
+            >
+              <div class="menu__item-block">
+                <svg class="menu__icon">
+                  <use href="./images/lang-flags-icon.svg#flag-pl"></use>
+                </svg>
+                <span class="menu__text">PL</span>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </header>
+    <main class="main">
+      <div class="game">
+        <div class="game__container game__container--start">
+          <h2
+            class="game__title"
+            data-i18n="modeTitle"
+          ></h2>
+          <aside
+            id="startMenu"
+            class="menu game__start-menu open"
+          >
+            <nav class="menu__nav">
+              <ul class="menu__list">
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="addition"
+                >
+                  <div class="menu__item-block">
+                    <span class="menu__icon">+</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.addition.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="subtraction"
+                >
+                  <div class="menu__item-block">
+                    <span class="menu__icon">−</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.subtraction.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="multiplication"
+                >
+                  <div class="menu__item-block">
+                    <span class="menu__icon">×</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.multiplication.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="division"
+                >
+                  <div class="menu__item-block">
+                    <span class="menu__icon">÷</span>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.division.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="make10"
+                >
+                  <div class="menu__item-block">
+                    <svg
+                      class="menu__icon"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="./images/10.svg" />
+                    </svg>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.make10.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="compare"
+                >
+                  <div class="menu__item-block">
+                    <svg
+                      class="menu__icon"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="./images/compare.svg" />
+                    </svg>
+                    <span
+                      class="menu__text"
+                      data-i18n="modes.compare.name"
+                    ></span>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        </div>
+        <div class="game__container game__container--play hidden">
+          <div class="game__box game__box--first"></div>
+          <div class="game__box game__box--operator">×</div>
+          <div class="game__box game__box--second"></div>
+          <div class="game__box game__box--equals">=</div>
+          <div class="game__box game__box--result"></div>
+          <input
+            class="game__input hidden"
+            type="text"
+            name="game-answer"
+            inputmode="text"
+            pattern="[0-9>&lt;=]+"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            autofocus
+          />
+        </div>
+        <div
+          class="game__container game__container--tips hidden"
+          data-i18n="chooseAnswer"
+          data-i18n-attr="css-var"
+          data-css-var="--tips-title"
+        >
+          <div class="game__box game__box--tip"></div>
+          <div class="game__box game__box--tip"></div>
+          <div class="game__box game__box--tip"></div>
+        </div>
+      </div>
+    </main>
+    <!-- <script src="js/script.js"></script> -->
+    <script
+      type="module"
+      src="js/game.js"
+    ></script>
+  </body>
+</html>

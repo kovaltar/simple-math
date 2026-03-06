@@ -1,0 +1,10 @@
+{
+  "name": "simple-math",
+  "version": "1.0.0",
+  "scripts": {
+    "sass": "sass --watch css/styles.scss:css/styles.css"
+  },
+  "devDependencies": {
+    "sass": "^1.97.3"
+  }
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <!-- < (зсунули вліво) -->
+  <path d="M8 7 L4 12 L8 17" />
+
+  <!-- = (центр) -->
+  <line x1="9.5" y1="10.5" x2="14.5" y2="10.5" />
+  <line x1="9.5" y1="13.5" x2="14.5" y2="13.5" />
+
+  <!-- > (зсунули вправо) -->
+  <path d="M16 7 L20 12 L16 17" />
+
+</svg>

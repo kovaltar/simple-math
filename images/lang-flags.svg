@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
+  <!-- 🇺🇦 UA -->
+  <symbol id="flag-ua" viewBox="0 0 24 24">
+    <defs>
+      <mask id="mask-ua">
+        <rect width="24" height="24" fill="black"/>
+        <circle cx="12" cy="12" r="12" fill="white"/>
+      </mask>
+    </defs>
+    <g mask="url(#mask-ua)">
+      <rect width="24" height="12" y="0" fill="#0057B7"/>
+      <rect width="24" height="12" y="12" fill="#FFD700"/>
+    </g>
+  </symbol>
+
+  <!-- 🇵🇱 PL -->
+  <symbol id="flag-pl" viewBox="0 0 24 24">
+    <defs>
+      <mask id="mask-pl">
+        <rect width="24" height="24" fill="black"/>
+        <circle cx="12" cy="12" r="12" fill="white"/>
+      </mask>
+    </defs>
+    <g mask="url(#mask-pl)">
+      <rect width="24" height="12" y="0" fill="#FFFFFF"/>
+      <rect width="24" height="12" y="12" fill="#DC143C"/>
+    </g>
+  </symbol>
+
+  <!-- 🇬🇧 EN -->
+  <symbol id="flag-en" viewBox="0 0 24 24">
+    <defs>
+      <mask id="mask-en">
+        <rect width="24" height="24" fill="black"/>
+        <circle cx="12" cy="12" r="12" fill="white"/>
+      </mask>
+    </defs>
+    <g mask="url(#mask-en)">
+      <rect width="24" height="24" fill="#012169"/>
+      <rect x="10" width="4" height="24" fill="#FFFFFF"/>
+      <rect y="10" width="24" height="4" fill="#FFFFFF"/>
+      <rect x="11" width="2" height="24" fill="#C8102E"/>
+      <rect y="11" width="24" height="2" fill="#C8102E"/>
+    </g>
+  </symbol>
+
+</svg>
