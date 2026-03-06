@@ -275,9 +275,15 @@
   cursor: pointer;
   transition: transform 0.15s ease, background 0.2s ease;
 }
-.game__box--tip:hover, .game__box--tip.active {
+.game__box--tip.active {
   background: #bfdbfe;
   transform: scale(1.1);
+}
+@media (hover: hover) {
+  .game__box--tip:hover {
+    background: #bfdbfe;
+    transform: scale(1.1);
+  }
 }
 
 .hidden {

@@ -51,7 +51,7 @@ $primary-light: #60a5fa;
     background: none;
     cursor: pointer;
     color: #ffffff;
-    width:40px;
+    width: 40px;
     height: 40px;
     display: flex;
     flex-shrink: 0;
@@ -340,9 +340,21 @@ $primary-light: #60a5fa;
         transform 0.15s ease,
         background 0.2s ease;
 
-      &:hover, &.active {
+      // &:hover {
+      //   background: #bfdbfe;
+      //   transform: scale(1.1);
+      // }
+
+      &.active {
         background: #bfdbfe;
         transform: scale(1.1);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background: #bfdbfe;
+          transform: scale(1.1);
+        }
       }
     }
   }
