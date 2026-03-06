@@ -1,4 +1,3 @@
-/* test */
 .page__body {
   background-color: #eff6ff;
   margin: 0;
@@ -159,7 +158,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .game {
@@ -220,7 +218,6 @@
   margin-block: 15px;
   display: block;
   border-radius: 10px;
-  background-color: #fff;
   background-color: #e2eefd;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid #bfdbfe;
@@ -242,7 +239,6 @@
   justify-content: center;
   border: 2px solid #bfdbfe;
   box-sizing: border-box;
-  margin-bottom: 15px;
 }
 .game__box {
   width: 50px;
@@ -279,9 +275,15 @@
   cursor: pointer;
   transition: transform 0.15s ease, background 0.2s ease;
 }
-.game__box--tip:hover, .game__box--tip.active {
+.game__box--tip.active {
   background: #bfdbfe;
   transform: scale(1.1);
+}
+@media (hover: hover) {
+  .game__box--tip:hover {
+    background: #bfdbfe;
+    transform: scale(1.1);
+  }
 }
 
 .hidden {

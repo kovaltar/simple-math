@@ -1,4 +1,10 @@
-import { langLabels, getLang, initLang, setLang, translateText } from "./lang.js";
+import {
+  langLabels,
+  getLang,
+  initLang,
+  setLang,
+  translateText,
+} from "./lang.js";
 
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
@@ -106,9 +112,9 @@ function setActiveLangMenu() {
 
   langMenuItems.forEach((item) => {
     const isActive = item.dataset.lang === lang;
-    
-    item.classList.toggle('active', isActive);
-    item.toggleAttribute('aria-selected', isActive);
+
+    item.classList.toggle("active", isActive);
+    item.toggleAttribute("aria-selected", isActive);
   });
 
   btnLang.textContent = langLabels[lang];
@@ -166,8 +172,10 @@ function selectMode(menuItem) {
   gameTitleBox.dataset.i18n = `modes.${mode}.title`;
   translateText(gameTitleBox);
 
-  [gameMenu, startMenu, langMenu].forEach(menu => menu.classList.remove("open"));
-  [btnMenu, btnLang].forEach(btn => btn.setAttribute("aria-expanded", false));
+  [gameMenu, startMenu, langMenu].forEach((menu) =>
+    menu.classList.remove("open"),
+  );
+  [btnMenu, btnLang].forEach((btn) => btn.setAttribute("aria-expanded", false));
 
   gameContainer.classList.remove("hidden");
   hideTips();
@@ -214,13 +222,6 @@ langMenu.addEventListener("click", (e) => {
 
 function getRandNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function clearBoxes(nodeList) {
-  nodeList.forEach((node, i) => {
-    node.textContent = "";
-    node.classList.remove("active");
-  });
 }
 
 function setUp() {
@@ -274,6 +275,26 @@ function renderGame() {
   requestAnimationFrame(() => input.focus());
 }
 
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function clearTipActive(tip) {
+  if (!tip) { return; };
+  tip.classList.remove("active");
+}
+
+function clearBoxes(nodeList) {
+  nodeList.forEach((node) => {
+    node.textContent = "";
+    clearTipActive(node);
+  });
+}
+
 function showTips(num1, num2, res) {
   clearBoxes(tipBoxes);
 
@@ -313,14 +334,6 @@ function showTips(num1, num2, res) {
   if (tipsContainer.classList.contains("hidden")) {
     tipsContainer.classList.remove("hidden");
   }
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }
 
 function hideTips() {
@@ -375,6 +388,7 @@ function submit() {
 
     setTimeout(() => {
       input.value = "";
+      tipBoxes.forEach(tip => clearTipActive(tip));
 
       if (gameState.mode !== "compare") {
         showTips(gameState.firstNum, gameState.secondNum, gameState.result);
