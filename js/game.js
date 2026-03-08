@@ -129,9 +129,7 @@ function toggleMenu(menuElement, menuButton) {
       menu.classList.remove("open");
       buttons[index].setAttribute("aria-expanded", false);
     } else {
-      if (!gameContainer.classList.contains("hidden")) {
-        requestAnimationFrame(() => input.focus());
-      }
+      focusInput();
     }
   });
 
@@ -152,14 +150,14 @@ document.addEventListener("click", (e) => {
     langMenu.classList.remove("open");
     btnMenu.setAttribute("aria-expanded", false);
     btnLang.setAttribute("aria-expanded", false);
-    if (!gameContainer.classList.contains("hidden")) {
-      requestAnimationFrame(() => input.focus());
-    }
+    focusInput()
   }
 });
 
 function selectMode(menuItem) {
   const mode = menuItem.dataset.mode;
+
+  btnMenu.classList.remove("unvisible");
 
   menuModeItems.forEach((item) => {
     const activeMode = item.dataset.mode === mode;
@@ -194,9 +192,7 @@ function selectLang(menuItem) {
   langMenu.classList.remove("open");
   btnLang.setAttribute("aria-expanded", false);
 
-  requestAnimationFrame(() => {
-    input.focus();
-  });
+  focusInput()
 }
 
 gameMenu.addEventListener("click", (e) => {
@@ -272,7 +268,7 @@ function renderGame() {
   input.value = "";
   input.classList.remove("hidden");
 
-  requestAnimationFrame(() => input.focus());
+  focusInput();
 }
 
 function shuffle(arr) {
@@ -370,6 +366,14 @@ function filterInput() {
   }
 }
 
+function focusInput() {
+  const { mode } = gameState;
+
+  if (mode && mode !== "compare") {
+    requestAnimationFrame(() => input.focus());
+  }
+}
+
 function submit() {
   if (gameState.inputValue === gameState.result) {
     setInputBoxStyles("correct");
@@ -396,8 +400,6 @@ function submit() {
     }, 500);
   }
 }
-
-input.focus();
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
