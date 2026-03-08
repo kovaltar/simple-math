@@ -73,15 +73,6 @@ $desktop-min-width: 1024px;
   &__buttons {
     display: flex;
     flex-direction: row;
-    // width: 80px;
-
-    // @include on-tablet {
-    //   width: 120px;
-    // }
-
-    // @include on-desktop {
-    //   width: 160px;
-    // }
   }
 
   &__btn {
@@ -120,24 +111,6 @@ $desktop-min-width: 1024px;
     &:hover {
       transform: scale(1.1);
     }
-
-    // &.hidden {
-    //   display: block;
-    //   opacity: 0;
-    //   pointer-events: none;
-    //   width: 40px;
-    //   height: 40px;
-
-    //   @include on-tablet {
-    //     width: 60px;
-    //     height: 60px;
-    //   }
-
-    //   @include on-desktop {
-    //     width: 80px;
-    //     height: 80px;
-    //   }
-    // }
   }
 
   &__icon {
