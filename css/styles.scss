@@ -1,5 +1,19 @@
 $primary: #3b82f6;
 $primary-light: #60a5fa;
+$tablet-min-width: 768px;
+$desktop-min-width: 1024px;
+
+@mixin on-tablet {
+  @media (min-width: $tablet-min-width) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: $desktop-min-width) {
+    @content;
+  }
+}
 
 .page {
   &__body {
@@ -30,6 +44,14 @@ $primary-light: #60a5fa;
   background: linear-gradient($primary, $primary-light);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
+  @include on-tablet {
+    padding: 7px;
+  }
+
+  @include on-desktop {
+    padding: 10px;
+  }
+
   &__title {
     margin: 0;
     width: fit-content;
@@ -38,11 +60,28 @@ $primary-light: #60a5fa;
     text-transform: uppercase;
     font-size: 22px;
     font-weight: bold;
+
+    @include on-tablet {
+      font-size: 33px;
+    }
+
+    @include on-desktop {
+      font-size: 44px;
+    }
   }
 
   &__buttons {
     display: flex;
     flex-direction: row;
+    // width: 80px;
+
+    // @include on-tablet {
+    //   width: 120px;
+    // }
+
+    // @include on-desktop {
+    //   width: 160px;
+    // }
   }
 
   &__btn {
@@ -61,6 +100,18 @@ $primary-light: #60a5fa;
     cursor: pointer;
     transition: transform 0.2s ease;
 
+    @include on-tablet {
+      font-size: 30px;
+      width: 60px;
+      height: 60px;
+    }
+
+    @include on-desktop {
+      font-size: 40px;
+      width: 80px;
+      height: 80px;
+    }
+
     &:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px #ffffff;
@@ -69,17 +120,51 @@ $primary-light: #60a5fa;
     &:hover {
       transform: scale(1.1);
     }
+
+    // &.hidden {
+    //   display: block;
+    //   opacity: 0;
+    //   pointer-events: none;
+    //   width: 40px;
+    //   height: 40px;
+
+    //   @include on-tablet {
+    //     width: 60px;
+    //     height: 60px;
+    //   }
+
+    //   @include on-desktop {
+    //     width: 80px;
+    //     height: 80px;
+    //   }
+    // }
   }
 
   &__icon {
-    width: 80%;
-    height: 80%;
     width: 24px;
     height: 24px;
     display: block;
 
+    @include on-tablet {
+      width: 36px;
+      height: 36px;
+    }
+
+    @include on-desktop {
+      width: 48px;
+      height: 48px;
+    }
+
     &--logo {
       padding: 8px;
+
+      @include on-tablet {
+        padding: 12px;
+      }
+
+      @include on-desktop {
+        padding: 16px;
+      }
     }
   }
 }
@@ -112,6 +197,16 @@ $primary-light: #60a5fa;
   font-weight: bold;
   text-transform: uppercase;
 
+  @include on-tablet {
+    top: 74px;
+    font-size: 27px;
+  }
+
+  @include on-desktop {
+    top: 100px;
+    font-size: 36px;
+  }
+
   &__list {
     margin: 0;
     padding: 0;
@@ -142,6 +237,14 @@ $primary-light: #60a5fa;
     transition: transform 0.3s;
     transform: scale(0);
     transform-origin: left;
+
+    @include on-tablet {
+      height: 3px;
+    }
+
+    @include on-desktop {
+      height: 4px;
+    }
   }
 
   &__item:hover::after {
@@ -172,11 +275,27 @@ $primary-light: #60a5fa;
     font-size: 20px;
     font-weight: bold;
 
-    border-radius: 12px;
+    border-radius: 6px;
     background: #ffeb3b;
     color: #1e3a8a;
     border: 2px solid #1e3a8a;
     box-sizing: border-box;
+
+    @include on-tablet {
+      font-size: 30px;
+      border-width: 3px;
+      border-radius: 9px;
+      width: 36px;
+      height: 36px;
+    }
+
+    @include on-desktop {
+      font-size: 40px;
+      border-width: 4px;
+      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__text {
@@ -213,6 +332,14 @@ $primary-light: #60a5fa;
   align-items: center;
   min-width: 310px;
 
+  @include on-tablet {
+    min-width: 465px;
+  }
+
+  @include on-desktop {
+    min-width: 620px;
+  }
+
   &__container {
     display: flex;
     gap: 10px;
@@ -222,6 +349,16 @@ $primary-light: #60a5fa;
     max-width: 560px;
     box-sizing: border-box;
 
+    @include on-tablet {
+      gap: 15px;
+      max-width: 840px;
+    }
+
+    @include on-desktop() {
+      gap: 20px;
+      max-width: 1120px;
+    }
+
     &--start {
       flex-direction: column;
       gap: 0;
@@ -229,11 +366,19 @@ $primary-light: #60a5fa;
 
     &--play {
       padding-bottom: 40px;
+
+      @include on-tablet {
+        padding-bottom: 60px;
+      }
+
+      @include on-desktop() {
+        padding-bottom: 80px;
+      }
     }
 
     &--tips {
       position: relative;
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
 
       &::before {
         color: #1e3a8a;
@@ -244,6 +389,16 @@ $primary-light: #60a5fa;
         top: -20px;
         // content: "Обери правильну відповідь:";
         content: var(--tips-title);
+
+        @include on-tablet {
+          font-size: 18px;
+          top: -30px;
+        }
+
+        @include on-desktop() {
+          font-size: 24px;
+          top: -40px;
+        }
       }
     }
   }
@@ -284,6 +439,20 @@ $primary-light: #60a5fa;
     font-size: 24px;
     text-transform: uppercase;
     text-align: center;
+
+    @include on-tablet {
+      margin-block: 24px;
+      border-width: 3px;
+      font-size: 36px;
+      border-radius: 15px;
+    }
+
+    @include on-desktop() {
+      margin-block: 32px;
+      border-width: 4px;
+      font-size: 48px;
+      border-radius: 20px;
+    }
   }
 
   &__start-menu.open {
@@ -298,6 +467,36 @@ $primary-light: #60a5fa;
     justify-content: center;
     border: 2px solid #bfdbfe;
     box-sizing: border-box;
+
+    @include on-tablet {
+      font-size: 36px;
+      border-width: 3px;
+      border-radius: 15px;
+    }
+
+    @include on-desktop {
+      font-size: 48px;
+      border-width: 4px;
+      border-radius: 20px;
+    }
+
+    & .menu__icon {
+      @include on-tablet {
+        font-size: 36px;
+        border-width: 3px;
+        border-radius: 9px;
+        width: 36px;
+        height: 36px;
+      }
+
+      @include on-desktop {
+        font-size: 48px;
+        border-width: 4px;
+        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+      }
+    }
   }
 
   &__box {
@@ -317,6 +516,22 @@ $primary-light: #60a5fa;
     color: #1e3a8a;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+    @include on-tablet {
+      width: 75px;
+      height: 75px;
+      border-radius: 15px;
+      font-size: 36px;
+      border-width: 3px;
+    }
+
+    @include on-desktop() {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      font-size: 48px;
+      border-width: 4px;
+    }
 
     &--correct {
       background-color: #bbf7d0;
@@ -340,11 +555,6 @@ $primary-light: #60a5fa;
         transform 0.15s ease,
         background 0.2s ease;
 
-      // &:hover {
-      //   background: #bfdbfe;
-      //   transform: scale(1.1);
-      // }
-
       &.active {
         background: #bfdbfe;
         transform: scale(1.1);
@@ -365,4 +575,9 @@ $primary-light: #60a5fa;
   visibility: hidden;
   height: 0;
   width: 0;
+}
+
+.unvisible {
+  visibility: hidden;
+  pointer-events: none;
 }
