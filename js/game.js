@@ -25,6 +25,7 @@ const gameModes = {
   addition: {
     operator: "+",
     range: [0, 10],
+    layout: "standard",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a + b,
   },
@@ -32,6 +33,7 @@ const gameModes = {
   subtraction: {
     operator: "−",
     range: [0, 20],
+    layout: "standard",
     generate: (min, max) => {
       const a = getRandNum(min, max);
       const b = getRandNum(min, max);
@@ -43,6 +45,7 @@ const gameModes = {
   multiplication: {
     operator: "·",
     range: [0, 10],
+    layout: "standard",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a * b,
   },
@@ -50,6 +53,7 @@ const gameModes = {
   division: {
     operator: "∶",
     range: [1, 10],
+    layout: "standard",
     generate: (min, max) => {
       const result = getRandNum(0, max);
       const divisor = getRandNum(min, max);
@@ -61,6 +65,7 @@ const gameModes = {
   make10: {
     operator: "+",
     range: [1, 9],
+    layout: "make10",
     generate: (min, max) => {
       const a = getRandNum(min, max);
       return [a, 10];
@@ -71,6 +76,7 @@ const gameModes = {
   compare: {
     operator: "",
     range: [0, 100],
+    layout: "compare",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => (a === b ? "=" : a > b ? ">" : "<"),
   },
@@ -195,26 +201,19 @@ function selectLang(menuItem) {
   focusInput()
 }
 
-gameMenu.addEventListener("click", (e) => {
-  const item = e.target.closest(".menu__item");
-  if (!item) return;
+function handleMenuClick(menu, handler) {
+  menu.addEventListener("click", (e) => {
+    const menuItem = e.target.closest(".menu__item");
 
-  selectMode(item);
-});
+    if (menuItem) {
+      handler(menuItem);
+    }
+  });
+}
 
-startMenu.addEventListener("click", (e) => {
-  const item = e.target.closest(".menu__item");
-  if (!item) return;
-
-  selectMode(item);
-});
-
-langMenu.addEventListener("click", (e) => {
-  const item = e.target.closest(".menu__item");
-  if (!item) return;
-
-  selectLang(item);
-});
+handleMenuClick(gameMenu, selectMode);
+handleMenuClick(startMenu, selectMode);
+handleMenuClick(langMenu, selectLang);
 
 function getRandNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -234,40 +233,42 @@ function setUp() {
 
 function renderGame() {
   const { mode, firstNum, secondNum } = gameState;
-  const { operator } = gameModes[mode];
+  const { operator, layout } = gameModes[mode];
 
   setInputBoxStyles("normal");
 
   firstNumBox.textContent = firstNum;
   secondNumBox.textContent = secondNum;
-
   equalityBox.classList.remove("hidden");
   resultBox.classList.remove("hidden");
+  input.classList.remove("hidden");
 
-  if (mode === "compare") {
-    showTips();
+  switch (layout) {
+    case "compare":
+      showTips();
+      operatorBox.textContent = "";
+      operatorBox.append(input);
 
-    operatorBox.textContent = "";
-    operatorBox.append(input);
+      equalityBox.classList.add("hidden");
+      resultBox.classList.add("hidden");
+      break;
 
-    equalityBox.classList.add("hidden");
-    resultBox.classList.add("hidden");
-  } else {
-    operatorBox.textContent = operator;
-
-    if (mode === "make10") {
+    case "make10":
+      operatorBox.textContent = operator;
       secondNumBox.textContent = "";
       secondNumBox.append(input);
       resultBox.textContent = secondNum;
-    } else {
+      break;
+
+    case "standard":
+    default:
+      operatorBox.textContent = operator;
       resultBox.textContent = "";
       resultBox.append(input);
-    }
+      break;
   }
 
   input.value = "";
-  input.classList.remove("hidden");
-
   focusInput();
 }
 
