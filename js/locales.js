@@ -5,7 +5,17 @@ export const locales = {
     score: "рахунок",
     menu: {
       gameModes: "Режими гри",
-      languages: "Українська мова"
+      languages: "Українська мова",
+    },
+    settings: {
+      ranges: {
+        title: "діапазон чисел",
+        reset: "скинути діапазони",
+      },
+      langs: {
+        title: "мови",
+        names: { ua: "українська", en: "англійська", pl: "польська" },
+      },
     },
     modes: {
       addition: { name: "додавання", title: "виконай додавання" },
@@ -13,7 +23,7 @@ export const locales = {
       multiplication: { name: "множення", title: "виконай множення" },
       division: { name: "ділення", title: "виконай ділення" },
       make10: { name: "утвори 10", title: "утвори 10" },
-      compare: { name: "порівняй", title: "порівняй числа" },
+      compare: { name: "порівняння", title: "порівняй числа" },
     },
   },
   en: {
@@ -22,7 +32,17 @@ export const locales = {
     score: "score",
     menu: {
       gameModes: "Game modes",
-      languages: "English language"
+      languages: "English language",
+    },
+    settings: {
+      ranges: {
+        title: "numbers range",
+        reset: "reset ranges",
+      },
+      langs: {
+        title: "languages",
+        names: { ua: "ukrainian", en: "english", pl: "polish" },
+      },
     },
     modes: {
       addition: { name: "addition", title: "solve addition" },
@@ -30,7 +50,7 @@ export const locales = {
       multiplication: { name: "multiplication", title: "solve multiplication" },
       division: { name: "division", title: "solve division" },
       make10: { name: "make 10", title: "make 10" },
-      compare: { name: "compare", title: "compare numbers" },
+      compare: { name: "comparison", title: "compare numbers" },
     },
   },
   pl: {
@@ -39,7 +59,17 @@ export const locales = {
     score: "wynik",
     menu: {
       gameModes: "Tryby gry",
-      languages: "Język polski"
+      languages: "Język polski",
+    },
+    settings: {
+      ranges: {
+        title: "zakres liczb",
+        reset: "zresetuj zakresy",
+      },
+      langs: {
+        title: "języki",
+        names: { ua: "ukrainski", en: "angelski", pl: "polski" },
+      },
     },
     modes: {
       addition: { name: "dodawanie", title: "wykonaj dodawanie" },
@@ -47,7 +77,7 @@ export const locales = {
       multiplication: { name: "mnożenie", title: "wykonaj mnożenie" },
       division: { name: "dzielenie", title: "wykonaj dzielenie" },
       make10: { name: "utwórz 10", title: "utwórz 10" },
-      compare: { name: "porównaj", title: "porównaj liczby" },
+      compare: { name: "porównanie", title: "porównaj liczby" },
     },
   },
 };

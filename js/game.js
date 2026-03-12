@@ -8,9 +8,14 @@ import {
 
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
+const btnSettings = document.getElementById("settingsMenuToggle");
 
 const menuModeItems = document.querySelectorAll(".menu__item--mode");
 const langMenuItems = document.querySelectorAll(".menu__item--lang");
+const langSettingsItems = document.querySelectorAll(".langs__row");
+const rangeSettingsInputs = document.querySelectorAll(".ranges__input");
+const btnResetRanges = document.querySelector(".ranges__row--reset");
+let rangesChanged = false;
 
 const gameState = {
   mode: null,
@@ -25,6 +30,7 @@ const gameModes = {
   addition: {
     operator: "+",
     range: [0, 10],
+    rangeDefault: [0, 10],
     layout: "standard",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a + b,
@@ -33,6 +39,7 @@ const gameModes = {
   subtraction: {
     operator: "−",
     range: [0, 20],
+    rangeDefault: [0, 20],
     layout: "standard",
     generate: (min, max) => {
       const a = getRandNum(min, max);
@@ -45,6 +52,7 @@ const gameModes = {
   multiplication: {
     operator: "·",
     range: [0, 10],
+    rangeDefault: [0, 10],
     layout: "standard",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => a * b,
@@ -53,6 +61,7 @@ const gameModes = {
   division: {
     operator: "∶",
     range: [1, 10],
+    rangeDefault: [1, 10],
     layout: "standard",
     generate: (min, max) => {
       const result = getRandNum(0, max);
@@ -65,6 +74,7 @@ const gameModes = {
   make10: {
     operator: "+",
     range: [1, 9],
+    rangeDefault: [1, 9],
     layout: "make10",
     generate: (min, max) => {
       const a = getRandNum(min, max);
@@ -76,6 +86,7 @@ const gameModes = {
   compare: {
     operator: "",
     range: [0, 100],
+    rangeDefault: [0, 100],
     layout: "compare",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => (a === b ? "=" : a > b ? ">" : "<"),
@@ -95,6 +106,10 @@ const inputConfig = {
 
 const gameMenu = document.getElementById("gameMenu");
 const langMenu = document.getElementById("langMenu");
+const settingsMenu = document.getElementById("settingsMenu");
+const settingsGroups = document.querySelectorAll(".settings__group");
+const settingsLangMenu = document.querySelector(".langs");
+const settingsRangeMenu = document.querySelector(".ranges");
 
 const gameTitleBox = document.querySelector(".game__title");
 const gameContainer = document.querySelector(".game__container--play");
@@ -112,11 +127,56 @@ const tipBoxes = document.querySelectorAll(".game__box--tip");
 initLang();
 translateText();
 setActiveLangMenu();
+setRangesValues();
+
+settingsGroups.forEach((group) => {
+  group.addEventListener("toggle", () => {
+    if (!group.open) return;
+
+    settingsGroups.forEach((g) => {
+      if (g !== group) g.open = false;
+    });
+  });
+});
+
+function setRangesValues() {
+  rangeSettingsInputs.forEach((input) => {
+    const inputMode = input.dataset.modename;
+    const inputType = input.dataset.typename;
+
+    input.value =
+      inputType === "min"
+        ? gameModes[inputMode].range[0]
+        : gameModes[inputMode].range[1];
+  });
+}
+
+function resetRanges() {
+  Object.values(gameModes).forEach((value) => {
+    value.range = [...value.rangeDefault];
+  });
+
+  rangesChanged = true;
+
+  setRangesValues();
+}
+
+rangeSettingsInputs.forEach((input) =>
+  input.addEventListener("focus", selectInputText),
+);
+
+function selectInputText() {
+  this.select();
+}
+
+btnResetRanges.addEventListener("click", resetRanges);
 
 function setActiveLangMenu() {
   const lang = getLang();
 
-  langMenuItems.forEach((item) => {
+  const langItems = [...langMenuItems, ...langSettingsItems];
+
+  langItems.forEach((item) => {
     const isActive = item.dataset.lang === lang;
 
     item.classList.toggle("active", isActive);
@@ -127,13 +187,20 @@ function setActiveLangMenu() {
 }
 
 function toggleMenu(menuElement, menuButton) {
-  const menus = [gameMenu, langMenu];
-  const buttons = [btnMenu, btnLang];
+  const menus = [gameMenu, langMenu, settingsMenu];
+  const buttons = [btnMenu, btnLang, btnSettings];
 
   menus.forEach((menu, index) => {
     if (menu !== menuElement) {
+      const settingsIsOpen =
+        menu === settingsMenu && menu.classList.contains("open");
+
       menu.classList.remove("open");
       buttons[index].setAttribute("aria-expanded", false);
+
+      if (settingsIsOpen) {
+        handleSettingsClose();
+      }
     } else {
       focusInput();
     }
@@ -141,22 +208,40 @@ function toggleMenu(menuElement, menuButton) {
 
   const isOpen = menuElement.classList.toggle("open");
   menuButton.setAttribute("aria-expanded", isOpen);
+
+  if (menuElement === settingsMenu && !isOpen) {
+    handleSettingsClose();
+  }
 }
 
 btnMenu.addEventListener("click", () => {
   toggleMenu(gameMenu, btnMenu);
 });
+
 btnLang.addEventListener("click", () => {
   toggleMenu(langMenu, btnLang);
 });
 
+btnSettings.addEventListener("click", () => {
+  toggleMenu(settingsMenu, btnSettings);
+});
+
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".menu") && !e.target.closest(".top-bar__btn")) {
+    const settingsIsOpen = settingsMenu.classList.contains("open");
+
     gameMenu.classList.remove("open");
     langMenu.classList.remove("open");
+    settingsMenu.classList.remove("open");
     btnMenu.setAttribute("aria-expanded", false);
     btnLang.setAttribute("aria-expanded", false);
-    focusInput()
+    btnSettings.setAttribute("aria-expanded", false);
+
+    if (settingsIsOpen) {
+      handleSettingsClose();
+    }
+
+    focusInput();
   }
 });
 
@@ -191,6 +276,7 @@ function selectLang(menuItem) {
 
   if (setLang(lang)) {
     gameState.lang = lang;
+
     translateText();
     setActiveLangMenu();
   }
@@ -198,12 +284,13 @@ function selectLang(menuItem) {
   langMenu.classList.remove("open");
   btnLang.setAttribute("aria-expanded", false);
 
-  focusInput()
+  focusInput();
 }
 
 function handleMenuClick(menu, handler) {
   menu.addEventListener("click", (e) => {
-    const menuItem = e.target.closest(".menu__item");
+    const menuItem =
+      e.target.closest(".menu__item") || e.target.closest(".langs__row");
 
     if (menuItem) {
       handler(menuItem);
@@ -211,9 +298,66 @@ function handleMenuClick(menu, handler) {
   });
 }
 
+function syncRangesFromInputs() {
+  rangeSettingsInputs.forEach((input) => {
+    const mode = input.dataset.modename;
+    const type = input.dataset.typename;
+
+    setValueToRange(mode, type, input.value);
+  });
+
+  Object.values(gameModes).forEach(mode => {
+    mode.range.sort((a, b) => a - b);
+  });
+
+  setRangesValues();
+}
+
+function handleSettingsClose() {
+  syncRangesFromInputs();
+
+  if (rangesChanged && gameState.mode) {
+    setUp();
+    console.log(`rangesChanged = ${rangesChanged}`);
+  }
+
+  rangesChanged = false;
+
+  console.log('settings close');
+}
+
 handleMenuClick(gameMenu, selectMode);
 handleMenuClick(startMenu, selectMode);
 handleMenuClick(langMenu, selectLang);
+handleMenuClick(settingsLangMenu, selectLang);
+
+function setValueToRange(mode, type, value) {
+  if (type === "min") {
+    gameModes[mode].range[0] = +value;
+  } else if (type === "max") {
+    gameModes[mode].range[1] = +value;
+  }
+}
+
+function changeRange(e) {
+  const input = e.target.closest(".ranges__input");
+
+  if (!input) {
+    return;
+  }
+
+  const mode = input.dataset.modename;
+  const type = input.dataset.typename;
+  const value = input.value;
+
+  setValueToRange(mode, type, value);
+
+  rangesChanged = true;
+
+  console.log(`mode:${mode} type:${type} value:${value}`);
+}
+
+settingsRangeMenu.addEventListener("change", changeRange);
 
 function getRandNum(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -224,6 +368,8 @@ function setUp() {
 
   const { range, generate, calc } = gameModes[gameState.mode];
   const [min, max] = range;
+
+  console.log(`mode: ${gameState.mode}, min = ${min}, max = ${max}`);
 
   [gameState.firstNum, gameState.secondNum] = generate(min, max);
   gameState.result = calc(gameState.firstNum, gameState.secondNum);
@@ -281,7 +427,9 @@ function shuffle(arr) {
 }
 
 function clearTipActive(tip) {
-  if (!tip) { return; };
+  if (!tip) {
+    return;
+  }
   tip.classList.remove("active");
 }
 
@@ -359,12 +507,16 @@ function setupInput(mode) {
   input.pattern = config.pattern;
 }
 
-function filterInput() {
+function filterGameInput() {
   if (gameState.mode === "compare") {
     input.value = input.value.replace(/[^<=>]/g, "").slice(0, 1);
   } else {
     input.value = input.value.replace(/[^0-9]/g, "");
   }
+}
+
+function filterRangeInput(e) {
+  e.target.value = e.target.value.replace(/[^0-9]/g, "");
 }
 
 function focusInput() {
@@ -393,7 +545,7 @@ function submit() {
 
     setTimeout(() => {
       input.value = "";
-      tipBoxes.forEach(tip => clearTipActive(tip));
+      tipBoxes.forEach((tip) => clearTipActive(tip));
 
       if (gameState.mode !== "compare") {
         showTips(gameState.firstNum, gameState.secondNum, gameState.result);
@@ -420,4 +572,8 @@ tipsContainer.addEventListener("click", (e) => {
   }
 });
 
-input.addEventListener("input", filterInput);
+input.addEventListener("input", filterGameInput);
+
+rangeSettingsInputs.forEach((input) =>
+  input.addEventListener("input", filterRangeInput)
+);
