@@ -41,12 +41,14 @@
   <body class="page__body">
     <header class="header">
       <div class="top-bar">
-        <svg
-          class="top-bar__icon top-bar__icon--logo"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          id="settingsMenuToggle"
+          class="top-bar__btn"
         >
-          <use href="./images/logo.svg" />
-        </svg>
+          <svg class="top-bar__icon top-bar__icon--settings">
+            <use href="./images/icon-gear.svg#gear-icon"></use>
+          </svg>
+        </button>
         <h1 class="top-bar__title">Simple Math</h1>
         <div class="top-bar__buttons">
           <button
@@ -71,10 +73,315 @@
             aria-label="Select language"
             data-i18n="menu.languages"
             data-i18n-attr="aria-label"
-          >
-          </button>
+          ></button>
         </div>
       </div>
+      <aside
+        id="settingsMenu"
+        class="menu menu--settings"
+      >
+        <div class="menu__wrapper">
+          <section class="settings">
+            <details
+              class="settings__group"
+            >
+              <summary
+                class="settings__title"
+                data-i18n="settings.ranges.title"
+              ></summary>
+
+              <div class="settings__content">
+                <div class="ranges">
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.addition.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="additionMin"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="addition"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="additionMax"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="addition"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.subtraction.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="subtractionMin"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="subtraction"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="subtractionMax"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="subtraction"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.multiplication.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="multiplicationMin"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="multiplication"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="multiplicationMax"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="multiplication"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.division.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="divisionMin"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="division"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="divisionMax"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="division"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.make10.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="make10Min"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="make10"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="make10Max"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="make10"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+
+                  <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.compare.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="compareMin"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="compare"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="compareMax"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="compare"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div>
+                  <!-- <div class="ranges__row"> -->
+                    <button class="ranges__row ranges__row--reset" data-i18n="settings.ranges.reset"></button>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </details>
+
+            <details class="settings__group">
+              <summary
+                class="settings__title"
+                data-i18n="settings.langs.title"
+              ></summary>
+
+              <div class="settings__content">
+                <div class="langs">
+                  <button class="langs__row" data-lang="uk">
+                    <span
+                      class="langs__name"
+                      data-i18n="settings.langs.names.ua"
+                    ></span>
+                  </button>
+                  <button class="langs__row" data-lang="en">
+                    <span
+                      class="langs__name"
+                      data-i18n="settings.langs.names.en"
+                    ></span>
+                  </button>
+                  <button class="langs__row" data-lang="pl">
+                    <span
+                      class="langs__name"
+                      data-i18n="settings.langs.names.pl"
+                    ></span>
+                  </button>
+                </div>
+              </div>
+            </details>
+          </section>
+        </div>
+      </aside>
       <aside
         id="gameMenu"
         class="menu"
