@@ -24,6 +24,8 @@
   --surface-hover: #f1f5f9;
   --surface-focus: #e6f0ff;
 
+  --color-menu-icon: #1e3a8a;
+
   --divider: #ccc;
 }
 
@@ -51,6 +53,8 @@ $color-error-bg: var(--error-bg);
 
 $color-surface-hover: var(--surface-hover);
 $color-surface-focus: var(-surface-focus);
+
+$color-menu-icon: var(--color-menu-icon);
 
 $color-divider: var(--divider);
 
@@ -95,6 +99,8 @@ $desktop-min-width: 1024px;
 
     --surface-hover: #334155;
     --surface-focus: #475569;
+
+    --color-menu-icon: #1e293b;
 
     --divider: #475569;
   }
@@ -369,7 +375,8 @@ $desktop-min-width: 1024px;
     border-radius: 6px;
     // background: #ffeb3b;
     background: $color-accent;
-    color: $color-text;
+    // color: $color-text;
+    color: $color-menu-icon;
     border: 2px solid $color-text;
     box-sizing: border-box;
 

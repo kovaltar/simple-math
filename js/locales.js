@@ -40,7 +40,7 @@ export const locales = {
         reset: "reset ranges",
       },
       langs: {
-        title: "languages",
+        title: "language",
         names: { ua: "ukrainian", en: "english", pl: "polish" },
       },
     },
@@ -67,7 +67,7 @@ export const locales = {
         reset: "zresetuj zakresy",
       },
       langs: {
-        title: "języki",
+        title: "język",
         names: { ua: "ukrainski", en: "angelski", pl: "polski" },
       },
     },
