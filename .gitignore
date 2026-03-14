@@ -1,5 +1,6 @@
 node_modules/
 js/script.js
 css/style.css
+css/old_styles.scss
 .DS_Store
 *.log

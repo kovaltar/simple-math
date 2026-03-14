@@ -13,7 +13,7 @@ export const locales = {
         reset: "скинути діапазони",
       },
       langs: {
-        title: "мови",
+        title: "мова",
         names: { ua: "українська", en: "англійська", pl: "польська" },
       },
     },
@@ -36,7 +36,7 @@ export const locales = {
     },
     settings: {
       ranges: {
-        title: "numbers range",
+        title: "number range",
         reset: "reset ranges",
       },
       langs: {
