@@ -6,9 +6,11 @@ import {
   translateText,
 } from "./lang.js";
 
+const page = document.querySelector('.page');
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
 const btnSettings = document.getElementById("settingsMenuToggle");
+const switcher = document.querySelector('.theme-switcher');
 
 const menuModeItems = document.querySelectorAll(".menu__item--mode");
 const langMenuItems = document.querySelectorAll(".menu__item--lang");
@@ -128,6 +130,16 @@ initLang();
 translateText();
 setActiveLangMenu();
 setRangesValues();
+
+switcher.addEventListener('click', () => {
+  if (page.classList.contains('page--theme--dark')) {
+    page.classList.remove('page--theme--dark');
+    switcher.classList.remove('theme-switcher--theme--dark');
+  } else {
+    page.classList.add('page--theme--dark');
+    switcher.classList.add('theme-switcher--theme--dark');
+  }
+});
 
 settingsGroups.forEach((group) => {
   group.addEventListener("toggle", () => {

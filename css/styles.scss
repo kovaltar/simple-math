@@ -1,5 +1,59 @@
-$primary: #3b82f6;
-$primary-light: #60a5fa;
+:root {
+  --topbar-bg-start: #3b82f6;
+  --topbar-bg-end: #60a5fa;
+  --topbar-text: #ffffff;
+
+  --bg: #eff6ff;
+  --surface: #ffffff;
+
+  --text: #1e3a8a;
+
+  --border: #bfdbfe;
+
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+
+  --accent: #facc15;
+
+  --success: #22c55e;
+  --success-bg: #bbf7d0;
+
+  --error: #ef4444;
+  --error-bg: #fecaca;
+
+  --surface-hover: #f1f5f9;
+  --surface-focus: #e6f0ff;
+
+  --divider: #ccc;
+}
+
+$color-topbar-bg-start: var(--topbar-bg-start);
+$color-topbar-bg-end: var(--topbar-bg-end);
+$color-topbar-text: var(--topbar-text);
+
+$color-bg: var(--bg);
+$color-surface: var(--surface);
+
+$color-text: var(--text);
+
+$color-border: var(--border);
+
+$color-primary: var(--primary);
+$color-primary-light: var(--primary-light);
+
+$color-accent: var(--accent);
+
+$color-success: var(--success);
+$color-success-bg: var(--success-bg);
+
+$color-error: var(--error);
+$color-error-bg: var(--error-bg);
+
+$color-surface-hover: var(--surface-hover);
+$color-surface-focus: var(-surface-focus);
+
+$color-divider: var(--divider);
+
 $tablet-min-width: 768px;
 $desktop-min-width: 1024px;
 
@@ -16,8 +70,37 @@ $desktop-min-width: 1024px;
 }
 
 .page {
+  &--theme--dark {
+    --topbar-bg-start: #1e293b;
+    --topbar-bg-end: #334155;
+    --topbar-text: #e2e8f0;
+
+    --bg: #0f172a;
+    --surface: #1e293b;
+
+    --text: #e2e8f0;
+
+    --border: #334155;
+
+    --primary: #60a5fa;
+    --primary-light: #93c5fd;
+
+    --accent: #fde047;
+
+    --success: #4ade80;
+    --success-bg: #14532d;
+
+    --error: #f87171;
+    --error-bg: #7f1d1d;
+
+    --surface-hover: #334155;
+    --surface-focus: #475569;
+
+    --divider: #475569;
+  }
+
   &__body {
-    background-color: #eff6ff;
+    background-color: $color-bg;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -35,14 +118,41 @@ $desktop-min-width: 1024px;
   flex: 0 0 auto;
 }
 
+.theme-switcher {
+  width: 32px;
+  height: 16px;
+  cursor: pointer;
+  border-radius: 18px;
+  background-color: $color-bg;
+  padding: 2px;
+}
+
+.theme-switcher::after {
+  content: "";
+  display: block;
+  width: 50%;
+  padding-bottom: 50%;
+  border-radius: 50%;
+  background-color: $color-primary;
+  // background-color: $color-topbar-text;
+
+  transition: transform 0.3s;
+}
+
+.theme-switcher--theme--dark::after {
+  transform: translateX(100%);
+  background-color: $color-topbar-text;
+}
+
 .top-bar {
   position: relative;
   display: flex;
   padding: 5px;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient($primary, $primary-light);
+  background: linear-gradient($color-topbar-bg-start, $color-topbar-bg-end);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  color: $color-topbar-text;
 
   @include on-tablet {
     padding: 7px;
@@ -55,10 +165,10 @@ $desktop-min-width: 1024px;
   &__title {
     margin: 0;
     width: fit-content;
-    color: #ffffff;
+    color: inherit;
     text-align: center;
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
 
     @include on-tablet {
@@ -80,7 +190,7 @@ $desktop-min-width: 1024px;
     padding: 0;
     background: none;
     cursor: pointer;
-    color: #ffffff;
+    color: inherit;
     width: 40px;
     height: 40px;
     display: flex;
@@ -106,7 +216,7 @@ $desktop-min-width: 1024px;
 
     &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px #ffffff;
+      box-shadow: 0 0 0 3px $color-surface;
     }
 
     &:hover {
@@ -157,9 +267,10 @@ $desktop-min-width: 1024px;
     transform 0.3s ease;
 
   padding: 0 20px 20px 20px;
-  background-color: #ffffff;
-  background-color: #e2eefd;
-  color: #1e3a8a;
+  background-color: $color-surface;
+  // background-color: #ffffff;
+  // background-color: #e2eefd;
+  color: $color-text;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
@@ -173,7 +284,7 @@ $desktop-min-width: 1024px;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: #ffffff;
+    background-color: $color-surface;
   }
 
   @include on-tablet {
@@ -210,8 +321,9 @@ $desktop-min-width: 1024px;
     display: block;
     height: 2px;
     width: 100%;
-    background-color: #1e3a8a;
-    background-color: #3b82f6;
+    // background-color: #1e3a8a;
+    // background-color: #3b82f6;
+    background-color: $color-primary;
 
     transition: transform 0.3s;
     transform: scale(0);
@@ -232,14 +344,14 @@ $desktop-min-width: 1024px;
 
   &__item:hover,
   &__item.active {
-    color: #3b82f6;
+    color: $color-primary;
     cursor: pointer;
   }
 
   &__item:hover .menu__icon,
   &__item.active .menu__icon {
-    color: #3b82f6;
-    border-color: #3b82f6;
+    color: $color-primary;
+    border-color: $color-primary;
   }
 
   &__icon {
@@ -255,9 +367,10 @@ $desktop-min-width: 1024px;
     font-weight: bold;
 
     border-radius: 6px;
-    background: #ffeb3b;
-    color: #1e3a8a;
-    border: 2px solid #1e3a8a;
+    // background: #ffeb3b;
+    background: $color-accent;
+    color: $color-text;
+    border: 2px solid $color-text;
     box-sizing: border-box;
 
     @include on-tablet {
@@ -360,7 +473,7 @@ $desktop-min-width: 1024px;
       // margin-bottom: 20px;
 
       &::before {
-        color: #1e3a8a;
+        color: $color-text;
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
@@ -407,14 +520,16 @@ $desktop-min-width: 1024px;
     margin-block: 15px;
     display: block;
     border-radius: 10px;
-    background-color: #e2eefd;
+    // background-color: #e2eefd;
+    background-color: $color-surface;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid #bfdbfe;
+    // border: 2px solid #bfdbfe;
+    border: 2px solid $color-border;
     box-sizing: border-box;
 
     // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     line-height: 2;
-    color: #1e3a8a;
+    color: $color-text;
     font-size: 24px;
     text-transform: uppercase;
     text-align: center;
@@ -444,7 +559,8 @@ $desktop-min-width: 1024px;
     position: relative;
     align-items: center;
     justify-content: center;
-    border: 2px solid #bfdbfe;
+    // border: 2px solid #bfdbfe;
+    border: 2px solid $color-border;
     box-sizing: border-box;
 
     @include on-tablet {
@@ -490,9 +606,9 @@ $desktop-min-width: 1024px;
     border-radius: 10px;
     line-height: 1;
 
-    background: #ffffff;
-    border: 2px solid #bfdbfe;
-    color: #1e3a8a;
+    background: $color-surface;
+    border: 2px solid $color-border;
+    color: $color-text;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
@@ -513,35 +629,38 @@ $desktop-min-width: 1024px;
     }
 
     &--correct {
-      background-color: #bbf7d0;
-      border-color: #22c55e;
-      color: #166534;
+      background-color: $color-success-bg;
+      border-color: $color-success;
+      // color: #166534;
+      color: $color-success;
     }
 
     &--wrong {
-      background-color: #fecaca;
-      border-color: #ef4444;
-      color: #7f1d1d;
+      background-color: $color-error-bg;
+      border-color: $color-error;
+      // color: #7f1d1d;
+      color: $color-error;
     }
 
     &--tip {
-      background: #dbeafe;
-      border: 2px solid transparent;
-      border: 2px solid #ffffff;
-      color: #1e3a8a;
+      // background: #dbeafe;
+      background: $color-bg;
+      // border: 2px solid transparent;
+      border: 2px solid $color-surface;
+      color: $color-text;
       cursor: pointer;
       transition:
         transform 0.15s ease,
         background 0.2s ease;
 
       &.active {
-        background: #bfdbfe;
+        background: $color-border;
         transform: scale(1.1);
       }
 
       @media (hover: hover) {
         &:hover {
-          background: #bfdbfe;
+          background: $color-border;
           transform: scale(1.1);
         }
       }
@@ -575,13 +694,6 @@ $desktop-min-width: 1024px;
 
 //  settings menu
 
-// $color-bg-hover: #f5f5f5;
-$color-bg-hover: #f1f5f9;
-$color-bg-focus: #e6f0ff;
-$color-border: #ccc;
-// $color-focus: #0077ff;
-$color-focus: #3b82f6;
-
 $spacing-row-vertical: 6px;
 $spacing-row-horizontal: 12px;
 $border-radius: 6px;
@@ -609,8 +721,8 @@ $input-width: 30px;
   }
 
   &:hover {
-    background-color: $color-bg-hover;
-    color: $color-focus;
+    background-color: $color-surface-hover;
+    color: $color-primary;
     transform: translateY(-1px);
     cursor: pointer;
   }
@@ -618,7 +730,7 @@ $input-width: 30px;
   &:focus-within {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.302);
-    background-color: $color-bg-focus;
+    background-color: $color-surface-focus;
   }
 }
 
@@ -626,7 +738,7 @@ $input-width: 30px;
   width: $input-width;
   padding: 4px 6px;
   margin: 0 4px;
-  border: 1px solid $color-border;
+  border: 1px solid $color-divider;
   border-radius: $input-border-radius;
   font-size: 14px;
   text-align: center;
@@ -635,7 +747,7 @@ $input-width: 30px;
     box-shadow 0.2s;
 
   &:focus {
-    border-color: $color-focus;
+    border-color: $color-primary;
     box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
     outline: none;
   }
@@ -653,7 +765,7 @@ $input-width: 30px;
     justify-content: space-between;
     font-weight: bold;
     padding: 10px 12px;
-    background: #ffffff;
+    background: $color-surface;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 
@@ -693,16 +805,14 @@ $input-width: 30px;
   &__group {
     margin-bottom: 8px;
     margin-bottom: 12px;
-    background: #ffffff;
+    background: $color-surface;
     border-radius: 8px;
 
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-
-    // overflow: hidden;  
   }
 
   &__group[open] &__title {
-    color: $primary;
+    color: $color-primary;
     box-shadow: 0 3px 12px rgba(59, 130, 246, 0.15);
   }
 
@@ -731,7 +841,7 @@ $input-width: 30px;
       border: none;
       width: 100%;
       justify-content: center;
-      border: #1e3a8a solid 1px;
+      border: $color-text solid 1px;
     }
   }
 
@@ -756,8 +866,7 @@ $input-width: 30px;
     text-align: left;
 
     &.active {
-      color: #3b82f6;
-      // border-color: #3b82f6;
+      color: $color-primary;
     }
   }
 
