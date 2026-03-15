@@ -41,15 +41,19 @@
   <body class="page__body">
     <header class="header">
       <div class="top-bar">
-        <button
-          id="settingsMenuToggle"
-          class="top-bar__btn"
-        >
-          <svg class="top-bar__icon top-bar__icon--settings">
-            <use href="./images/icon-gear.svg#gear-icon"></use>
-          </svg>
-        </button>
-        <div class="theme-switcher"></div>
+        <div class="top-bar__buttons">
+          <button
+            id="settingsMenuToggle"
+            class="top-bar__btn"
+          >
+            <svg class="top-bar__icon top-bar__icon--settings">
+              <use href="./images/icon-gear.svg#gear-icon"></use>
+            </svg>
+          </button>
+          <button class="top-bar__btn">
+            <div class="theme-switcher"></div>
+          </button>
+        </div>
         <h1 class="top-bar__title">Simple Math</h1>
         <div class="top-bar__buttons">
           <button

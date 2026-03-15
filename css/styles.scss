@@ -27,6 +27,12 @@
   --color-menu-icon: #1e3a8a;
 
   --divider: #ccc;
+
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
+  // --shadow-medium: 0 5px 10px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.22);
+  --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.18);
+  --surface-highlight: rgba(255, 255, 255, 0.04);
 }
 
 $color-topbar-bg-start: var(--topbar-bg-start);
@@ -52,11 +58,17 @@ $color-error: var(--error);
 $color-error-bg: var(--error-bg);
 
 $color-surface-hover: var(--surface-hover);
-$color-surface-focus: var(-surface-focus);
+$color-surface-focus: var(--surface-focus);
 
 $color-menu-icon: var(--color-menu-icon);
 
 $color-divider: var(--divider);
+
+$shadow-soft: var(--shadow-soft);
+$shadow-medium: var(--shadow-medium);
+$shadow-strong: var(--shadow-strong);
+
+$surface-highlight: var(--surface-highlight);
 
 $tablet-min-width: 768px;
 $desktop-min-width: 1024px;
@@ -102,7 +114,23 @@ $desktop-min-width: 1024px;
 
     --color-menu-icon: #1e293b;
 
-    --divider: #475569;
+    // --divider: #475569;
+    // --divider: rgba(255,255,255,0.16);
+    --divider: #334155;
+
+    // --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.4);
+    // --shadow-medium: 0 5px 10px rgba(0, 0, 0, 0.6);
+
+    --shadow-soft:
+      0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 6px rgba(0, 0, 0, 0.6);
+
+    --shadow-medium:
+      0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 12px rgba(0, 0, 0, 0.7);
+
+    --shadow-strong:
+      0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.9);
+
+    --surface-highlight: rgba(255, 255, 255, 0.06);
   }
 
   &__body {
@@ -131,6 +159,18 @@ $desktop-min-width: 1024px;
   border-radius: 18px;
   background-color: $color-bg;
   padding: 2px;
+
+  @include on-tablet {
+    width: 48px;
+    height: 24px;
+    padding: 3px;
+  }
+
+  @include on-desktop {
+    width: 64px;
+    height: 32px;
+    padding: 4px;
+  }
 }
 
 .theme-switcher::after {
@@ -157,7 +197,8 @@ $desktop-min-width: 1024px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient($color-topbar-bg-start, $color-topbar-bg-end);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-medium;
   color: $color-topbar-text;
 
   @include on-tablet {
@@ -189,6 +230,7 @@ $desktop-min-width: 1024px;
   &__buttons {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   &__btn {
@@ -410,7 +452,7 @@ $desktop-min-width: 1024px;
   // transform: translateY(0) scale(1);
   transform: translateY(0);
 
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-medium;
   // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
   border-radius: 10px;
 }
@@ -529,7 +571,10 @@ $desktop-min-width: 1024px;
     border-radius: 10px;
     // background-color: #e2eefd;
     background-color: $color-surface;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      inset 0 1px 0 $surface-highlight,
+      $shadow-soft;
     // border: 2px solid #bfdbfe;
     border: 2px solid $color-border;
     box-sizing: border-box;
@@ -616,8 +661,12 @@ $desktop-min-width: 1024px;
     background: $color-surface;
     border: 2px solid $color-border;
     color: $color-text;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: $shadow-medium;
+    box-shadow:
+      inset 0 1px 0 $surface-highlight,
+      $shadow-medium;
 
     @include on-tablet {
       width: 75px;
@@ -724,7 +773,8 @@ $input-width: 30px;
     transform 0.2s;
 
   &:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid $color-divider;
   }
 
   &:hover {
@@ -774,14 +824,15 @@ $input-width: 30px;
     padding: 10px 12px;
     background: $color-surface;
     border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow-soft;
 
     transition:
       box-shadow 0.2s ease,
       transform 0.15s ease;
 
     &:hover {
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+      // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+      box-shadow: $shadow-medium;
       transform: translateY(-1px);
     }
 
@@ -815,7 +866,10 @@ $input-width: 30px;
     background: $color-surface;
     border-radius: 8px;
 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      inset 0 1px 0 $surface-highlight,
+      $shadow-soft;
   }
 
   &__group[open] &__title {
