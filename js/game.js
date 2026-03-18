@@ -76,18 +76,6 @@ const gameModes = {
     calc: (a, b) => a / b,
   },
 
-  // make10: {
-  //   operator: "+",
-  //   range: [1, 9],
-  //   rangeDefault: [1, 9],
-  //   layout: "make10",
-  //   generate: (min, max) => {
-  //     const a = getRandNum(min, max);
-  //     return [a, 10];
-  //   },
-  //   calc: (a, b) => b - a,
-  // },
-
   compare: {
     operator: "",
     range: [0, 100],
@@ -149,12 +137,17 @@ initLang();
 translateText();
 setActiveLangMenu();
 setRangesValues();
-makeTargetTitleUpdate(...makeTargetMenuText);
+makeTargetTitleUpdate();
 
-function makeTargetTitleUpdate(...elements) {
+function makeTargetTitleUpdate() {
   const target = gameModes.make10.target;
+  const mode = gameState.mode;
+  const nodes =
+    mode === "make10"
+      ? [gameTitleBox, ...makeTargetMenuText]
+      : [...makeTargetMenuText];
 
-  elements.forEach((el) => {
+  nodes.forEach((el) => {
     let title = el.textContent;
 
     title = title.split(" ")[0] + " " + target;
@@ -194,11 +187,7 @@ makeTargetSettingsRow.addEventListener("click", (e) => {
     targetMode.range[1] = targetValue - 1;
     rangesChanged = true;
 
-    if (mode === "make10") {
-      makeTargetTitleUpdate(gameTitleBox);
-    }
-
-    makeTargetTitleUpdate(...makeTargetMenuText);
+    makeTargetTitleUpdate();
   }
 });
 
@@ -337,9 +326,7 @@ function selectMode(menuItem) {
 
   gameTitleBox.dataset.i18n = `modes.${mode}.title`;
   translateText(gameTitleBox);
-  if (mode === "make10") {
-    makeTargetTitleUpdate(gameTitleBox);
-  }
+  makeTargetTitleUpdate();
 
   [gameMenu, startMenu, langMenu].forEach((menu) =>
     menu.classList.remove("open"),
@@ -353,11 +340,13 @@ function selectMode(menuItem) {
 
 function selectLang(menuItem) {
   const lang = menuItem.dataset.lang;
+  const mode = gameState.mode;
 
   if (setLang(lang)) {
     gameState.lang = lang;
 
     translateText();
+    makeTargetTitleUpdate();
     setActiveLangMenu();
   }
 
