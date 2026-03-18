@@ -6,16 +6,19 @@ import {
   translateText,
 } from "./lang.js";
 
-const page = document.querySelector('.page');
+const page = document.querySelector(".page");
 const btnMenu = document.getElementById("gameMenuToggle");
 const btnLang = document.getElementById("langMenuToggle");
 const btnSettings = document.getElementById("settingsMenuToggle");
-const switcher = document.querySelector('.theme-switcher');
+const switcher = document.querySelector(".theme-switcher");
 
 const menuModeItems = document.querySelectorAll(".menu__item--mode");
 const langMenuItems = document.querySelectorAll(".menu__item--lang");
 const langSettingsItems = document.querySelectorAll(".langs__row");
 const rangeSettingsInputs = document.querySelectorAll(".ranges__input");
+const makeTargetSettingsRow = document.querySelector(".ranges__row--make");
+const makeTargetMenuText = document.querySelectorAll(".menu__text--make10");
+const makeTargetSetButtons = document.querySelectorAll(".ranges__button");
 const btnResetRanges = document.querySelector(".ranges__row--reset");
 let rangesChanged = false;
 
@@ -73,17 +76,17 @@ const gameModes = {
     calc: (a, b) => a / b,
   },
 
-  make10: {
-    operator: "+",
-    range: [1, 9],
-    rangeDefault: [1, 9],
-    layout: "make10",
-    generate: (min, max) => {
-      const a = getRandNum(min, max);
-      return [a, 10];
-    },
-    calc: (a, b) => b - a,
-  },
+  // make10: {
+  //   operator: "+",
+  //   range: [1, 9],
+  //   rangeDefault: [1, 9],
+  //   layout: "make10",
+  //   generate: (min, max) => {
+  //     const a = getRandNum(min, max);
+  //     return [a, 10];
+  //   },
+  //   calc: (a, b) => b - a,
+  // },
 
   compare: {
     operator: "",
@@ -92,6 +95,22 @@ const gameModes = {
     layout: "compare",
     generate: (min, max) => [getRandNum(min, max), getRandNum(min, max)],
     calc: (a, b) => (a === b ? "=" : a > b ? ">" : "<"),
+  },
+
+  make10: {
+    target: 10,
+    operator: "+",
+    range: [1, 9],
+    rangeDefault: [1, 9],
+    layout: "make10",
+    generate(min, max) {
+      const a = getRandNum(min, max);
+      // return [a, this.target];
+      return [a, gameModes.make10.target];
+    },
+    calc(a, b) {
+      return b - a;
+    },
   },
 };
 
@@ -130,14 +149,56 @@ initLang();
 translateText();
 setActiveLangMenu();
 setRangesValues();
+makeTargetTitleUpdate(...makeTargetMenuText);
 
-switcher.addEventListener('click', () => {
-  if (page.classList.contains('page--theme--dark')) {
-    page.classList.remove('page--theme--dark');
-    switcher.classList.remove('theme-switcher--theme--dark');
+function makeTargetTitleUpdate(...elements) {
+  const target = gameModes.make10.target;
+
+  elements.forEach((el) => {
+    let title = el.textContent;
+
+    title = title.split(" ")[0] + " " + target;
+    el.textContent = title;
+  });
+}
+
+switcher.addEventListener("click", () => {
+  if (page.classList.contains("page--theme--dark")) {
+    page.classList.remove("page--theme--dark");
+    switcher.classList.remove("theme-switcher--theme--dark");
   } else {
-    page.classList.add('page--theme--dark');
-    switcher.classList.add('theme-switcher--theme--dark');
+    page.classList.add("page--theme--dark");
+    switcher.classList.add("theme-switcher--theme--dark");
+  }
+});
+
+makeTargetSettingsRow.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("ranges__button")) {
+    return;
+  }
+
+  if (!e.target.classList.contains("active")) {
+    makeTargetSetButtons.forEach((btn) => {
+      deactivate(btn);
+    });
+
+    e.target.classList.add("active");
+
+    console.log(+e.target.dataset.value);
+
+    const targetValue = +e.target.dataset.value;
+    const targetMode = gameModes.make10;
+    const mode = gameState.mode;
+
+    targetMode.target = targetValue;
+    targetMode.range[1] = targetValue - 1;
+    rangesChanged = true;
+
+    if (mode === "make10") {
+      makeTargetTitleUpdate(gameTitleBox);
+    }
+
+    makeTargetTitleUpdate(...makeTargetMenuText);
   }
 });
 
@@ -168,6 +229,10 @@ function resetRanges() {
     value.range = [...value.rangeDefault];
   });
 
+  gameModes.make10.target = 10;
+
+  makeTargetSetButtons.forEach((btn) => deactivate(btn));
+  makeTargetSetButtons[0].classList.add("active");
   rangesChanged = true;
 
   setRangesValues();
@@ -272,6 +337,9 @@ function selectMode(menuItem) {
 
   gameTitleBox.dataset.i18n = `modes.${mode}.title`;
   translateText(gameTitleBox);
+  if (mode === "make10") {
+    makeTargetTitleUpdate(gameTitleBox);
+  }
 
   [gameMenu, startMenu, langMenu].forEach((menu) =>
     menu.classList.remove("open"),
@@ -318,7 +386,7 @@ function syncRangesFromInputs() {
     setValueToRange(mode, type, input.value);
   });
 
-  Object.values(gameModes).forEach(mode => {
+  Object.values(gameModes).forEach((mode) => {
     mode.range.sort((a, b) => a - b);
   });
 
@@ -335,7 +403,7 @@ function handleSettingsClose() {
 
   rangesChanged = false;
 
-  console.log('settings close');
+  console.log("settings close");
 }
 
 handleMenuClick(gameMenu, selectMode);
@@ -438,17 +506,17 @@ function shuffle(arr) {
   return arr;
 }
 
-function clearTipActive(tip) {
-  if (!tip) {
+function deactivate(el) {
+  if (!el) {
     return;
   }
-  tip.classList.remove("active");
+  el.classList.remove("active");
 }
 
 function clearBoxes(nodeList) {
   nodeList.forEach((node) => {
     node.textContent = "";
-    clearTipActive(node);
+    deactivate(node);
   });
 }
 
@@ -528,7 +596,19 @@ function filterGameInput() {
 }
 
 function filterRangeInput(e) {
-  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+  let value = e.target.value.replace(/[^0-9]/g, "");
+
+  if (value === "") {
+    e.target.value = "";
+
+    return;
+  }
+
+  if (Number(value) > 1000) {
+    value = "1000";
+  }
+
+  e.target.value = value;
 }
 
 function focusInput() {
@@ -557,7 +637,7 @@ function submit() {
 
     setTimeout(() => {
       input.value = "";
-      tipBoxes.forEach((tip) => clearTipActive(tip));
+      tipBoxes.forEach((tip) => deactivate(tip));
 
       if (gameState.mode !== "compare") {
         showTips(gameState.firstNum, gameState.secondNum, gameState.result);
@@ -587,5 +667,5 @@ tipsContainer.addEventListener("click", (e) => {
 input.addEventListener("input", filterGameInput);
 
 rangeSettingsInputs.forEach((input) =>
-  input.addEventListener("input", filterRangeInput)
+  input.addEventListener("input", filterRangeInput),
 );

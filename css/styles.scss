@@ -326,6 +326,15 @@ $desktop-min-width: 1024px;
   &__wrapper {
     width: 280px;
     margin: 20px auto;
+    font: inherit;
+
+    @include on-tablet {
+      width: 420px;
+    }
+
+    @include on-desktop {
+      width: 560px;
+    }
   }
 
   &--settings {
@@ -754,27 +763,49 @@ $spacing-row-vertical: 6px;
 $spacing-row-horizontal: 12px;
 $border-radius: 6px;
 $input-border-radius: 4px;
-$input-width: 30px;
+// $input-width: 30px;
 
 @mixin row-style {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-family: inherit;
+  font: inherit;
   font-size: 16px;
   font-weight: bold;
   min-height: 38px;
   box-sizing: border-box;
   padding: $spacing-row-vertical $spacing-row-horizontal;
-  border-radius: $border-radius;
+  border-radius: 6px;
   transition:
     background 0.2s,
     box-shadow 0.2s,
     transform 0.2s;
 
+  @include on-tablet {
+    font-size: 24px;
+    min-height: 56px;
+    border-radius: 9px;
+    padding: 9px 18px;
+  }
+
+  @include on-desktop {
+    font-size: 32px;
+    min-height: 76px;
+    border-radius: 12px;
+    padding: 12px 24px;
+  }
+
   &:not(:last-child) {
     // border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     border-bottom: 1px solid $color-divider;
+
+    @include on-tablet {
+      border-bottom: 1.5px solid $color-divider;
+    }
+
+    @include on-desktop {
+      border-bottom: 2px solid $color-divider;
+    }
   }
 
   &:hover {
@@ -792,16 +823,34 @@ $input-width: 30px;
 }
 
 @mixin input-style {
-  width: $input-width;
+  width: 30px;
   padding: 4px 6px;
   margin: 0 4px;
   border: 1px solid $color-divider;
-  border-radius: $input-border-radius;
+  border-radius: 4px;
   font-size: 14px;
   text-align: center;
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
+
+  @include on-tablet {
+    width: 45px;
+    padding: 6px 9px;
+    margin: 0 6px;
+    border: 1.5px solid $color-divider;
+    border-radius: 6px;
+    font-size: 21px;
+  }
+
+  @include on-desktop {
+    width: 60px;
+    padding: 8px 12px;
+    margin: 0 8px;
+    border: 2px solid $color-divider;
+    border-radius: 8px;
+    font-size: 28px;
+  }
 
   &:focus {
     border-color: $color-primary;
@@ -811,8 +860,8 @@ $input-width: 30px;
 }
 
 .settings {
-  font-family: inherit;
-  font-size: 18px;
+  font: inherit;
+  // font-size: 18px;
 
   &__title {
     list-style: none;
@@ -821,14 +870,24 @@ $input-width: 30px;
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
-    padding: 10px 12px;
     background: $color-surface;
+    padding: 10px 12px;
     border-radius: 6px;
     box-shadow: $shadow-soft;
 
     transition:
       box-shadow 0.2s ease,
       transform 0.15s ease;
+
+    @include on-tablet {
+      padding: 15px 18px;
+      border-radius: 9px;
+    }
+
+    @include on-desktop {
+      padding: 20px 24px;
+      border-radius: 12px;
+    }
 
     &:hover {
       // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -843,6 +902,22 @@ $input-width: 30px;
 
       border-right: 2px solid currentColor;
       border-bottom: 2px solid currentColor;
+
+      @include on-tablet {
+        width: 12px;
+        height: 12px;
+
+        border-right: 3px solid currentColor;
+        border-bottom: 3px solid currentColor;
+      }
+
+      @include on-desktop {
+        width: 16px;
+        height: 16px;
+
+        border-right: 4px solid currentColor;
+        border-bottom: 4px solid currentColor;
+      }
 
       transform: rotate(-45deg);
       transition: transform 0.25s ease;
@@ -861,15 +936,28 @@ $input-width: 30px;
   }
 
   &__group {
-    margin-bottom: 8px;
-    margin-bottom: 12px;
     background: $color-surface;
+    margin-bottom: 12px;
     border-radius: 8px;
-
-    // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     box-shadow:
       inset 0 1px 0 $surface-highlight,
       $shadow-soft;
+
+    @include on-tablet {
+      margin-bottom: 18px;
+      border-radius: 12px;
+      box-shadow:
+        inset 0 1.5px 0 $surface-highlight,
+        $shadow-soft;
+    }
+
+    @include on-desktop {
+      margin-bottom: 24px;
+      border-radius: 16px;
+      box-shadow:
+        inset 0 2px 0 $surface-highlight,
+        $shadow-soft;
+    }
   }
 
   &__group[open] &__title {
@@ -888,8 +976,28 @@ $input-width: 30px;
 }
 
 .ranges {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  @include on-tablet {
+    gap: 3px;
+  }
+
+  @include on-desktop {
+    gap: 4px;
+  }
+
   &__mode {
     width: 150px;
+
+    @include on-tablet {
+      width: 225px;
+    }
+
+    @include on-desktop {
+      width: 300px;
+    }
   }
 
   &__row {
@@ -897,12 +1005,71 @@ $input-width: 30px;
 
     &--reset {
       text-transform: inherit;
-      color: inherit;
-      background: transparent;
+      // color: inherit;
+      // background: transparent;
       border: none;
       width: 100%;
       justify-content: center;
       border: $color-text solid 1px;
+      border: $color-divider solid 1px;
+      background-color: $color-bg;
+      color: $color-text;
+
+      @include on-tablet {
+        border-width: 1.5px;
+      }
+
+      @include on-desktop {
+        border-width: 2px;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  &__button {
+    @include input-style;
+
+    box-sizing: content-box;
+    cursor: pointer;
+    // background-color: $color-surface;
+    background-color: $color-bg;
+    color: $color-text;
+    border: 1px solid $color-divider;
+    // border: 1px solid $color-surface;
+    box-shadow: inset 0 1px 0 $surface-highlight;
+    transition: all 0.2s ease;
+
+    @include on-tablet {
+      border: 1.5px solid $color-divider;
+      box-shadow: inset 0 1.5px 0 $surface-highlight;
+    }
+
+    @include on-desktop {
+      border: 2px solid $color-divider;
+      box-shadow: inset 0 2px 0 $surface-highlight;
+    }
+
+    &:hover {
+      background-color: $color-surface-hover;
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &.active {
+      transform: scale(0.95);
+      background-color: $color-primary;
+      color: $color-topbar-text;
+
+      border-color: $color-primary;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 2px 6px rgba(59, 130, 246, 0.25);
     }
   }
 
@@ -916,6 +1083,15 @@ $input-width: 30px;
 .langs {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+
+  @include on-tablet {
+    gap: 3px;
+  }
+
+  @include on-desktop {
+    gap: 4px;
+  }
   &__row {
     @include row-style;
 

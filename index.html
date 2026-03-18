@@ -87,9 +87,7 @@
       >
         <div class="menu__wrapper">
           <section class="settings">
-            <details
-              class="settings__group"
-            >
+            <details class="settings__group">
               <summary
                 class="settings__title"
                 data-i18n="settings.ranges.title"
@@ -268,48 +266,6 @@
                   <div class="ranges__row">
                     <span
                       class="ranges__mode"
-                      data-i18n="modes.make10.name"
-                    ></span>
-                    <label>
-                      <span class="detached">min</span>
-                      <input
-                        name="make10Min"
-                        type="text"
-                        class="ranges__input ranges__input--min"
-                        placeholder="min"
-                        inputmode="numeric"
-                        pattern="^\d+$"
-                        autocomplete="off"
-                        autocorrect="off"
-                        autocapitalize="off"
-                        spellcheck="false"
-                        data-modename="make10"
-                        data-typename="min"
-                      />
-                    </label>
-                    <span>–</span>
-                    <label>
-                      <span class="detached">max</span>
-                      <input
-                        name="make10Max"
-                        type="text"
-                        class="ranges__input ranges__input--max"
-                        placeholder="max"
-                        inputmode="numeric"
-                        pattern="^\d+$"
-                        autocomplete="off"
-                        autocorrect="off"
-                        autocapitalize="off"
-                        spellcheck="false"
-                        data-modename="make10"
-                        data-typename="max"
-                      />
-                    </label>
-                  </div>
-
-                  <div class="ranges__row">
-                    <span
-                      class="ranges__mode"
                       data-i18n="modes.compare.name"
                     ></span>
                     <label>
@@ -348,8 +304,66 @@
                       />
                     </label>
                   </div>
+
+                  <!-- <div class="ranges__row">
+                    <span
+                      class="ranges__mode"
+                      data-i18n="modes.make10.name"
+                    ></span>
+                    <label>
+                      <span class="detached">min</span>
+                      <input
+                        name="make10Min"
+                        type="text"
+                        class="ranges__input ranges__input--min"
+                        placeholder="min"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="make10"
+                        data-typename="min"
+                      />
+                    </label>
+                    <span>–</span>
+                    <label>
+                      <span class="detached">max</span>
+                      <input
+                        name="make10Max"
+                        type="text"
+                        class="ranges__input ranges__input--max"
+                        placeholder="max"
+                        inputmode="numeric"
+                        pattern="^\d+$"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-modename="make10"
+                        data-typename="max"
+                      />
+                    </label>
+                  </div> -->
+
+                  <div class="ranges__row ranges__row--make">
+                    <span class="ranges__mode" data-i18n="modes.make10.name"></span>
+
+                    <div class="ranges__buttons">
+                      <button class="ranges__button active" data-value="10">10</button>
+                      <span>–</span>
+                      <button class="ranges__button" data-value="100">100</button>
+                      <span>–</span>
+                      <button class="ranges__button" data-value="1000">1000</button>
+                    </div>
+                  </div>
+
                   <!-- <div class="ranges__row"> -->
-                    <button class="ranges__row ranges__row--reset" data-i18n="settings.ranges.reset"></button>
+                  <button
+                    class="ranges__row ranges__row--reset"
+                    data-i18n="settings.ranges.reset"
+                  ></button>
                   <!-- </div> -->
                 </div>
               </div>
@@ -363,19 +377,28 @@
 
               <div class="settings__content">
                 <div class="langs">
-                  <button class="langs__row" data-lang="uk">
+                  <button
+                    class="langs__row"
+                    data-lang="uk"
+                  >
                     <span
                       class="langs__name"
                       data-i18n="settings.langs.names.ua"
                     ></span>
                   </button>
-                  <button class="langs__row" data-lang="en">
+                  <button
+                    class="langs__row"
+                    data-lang="en"
+                  >
                     <span
                       class="langs__name"
                       data-i18n="settings.langs.names.en"
                     ></span>
                   </button>
-                  <button class="langs__row" data-lang="pl">
+                  <button
+                    class="langs__row"
+                    data-lang="pl"
+                  >
                     <span
                       class="langs__name"
                       data-i18n="settings.langs.names.pl"
@@ -443,23 +466,6 @@
             </li>
             <li
               class="menu__item menu__item--mode"
-              data-mode="make10"
-            >
-              <div class="menu__item-block">
-                <svg
-                  class="menu__icon"
-                  viewBox="0 0 24 24"
-                >
-                  <use href="./images/10.svg" />
-                </svg>
-                <span
-                  class="menu__text"
-                  data-i18n="modes.make10.name"
-                ></span>
-              </div>
-            </li>
-            <li
-              class="menu__item menu__item--mode"
               data-mode="compare"
             >
               <div class="menu__item-block">
@@ -472,6 +478,23 @@
                 <span
                   class="menu__text"
                   data-i18n="modes.compare.name"
+                ></span>
+              </div>
+            </li>
+            <li
+              class="menu__item menu__item--mode"
+              data-mode="make10"
+            >
+              <div class="menu__item-block">
+                <svg
+                  class="menu__icon"
+                  viewBox="0 0 24 24"
+                >
+                  <use href="./images/10.svg" />
+                </svg>
+                <span
+                  class="menu__text menu__text--make10"
+                  data-i18n="modes.make10.name"
                 ></span>
               </div>
             </li>
@@ -594,23 +617,6 @@
                 </li>
                 <li
                   class="menu__item menu__item--mode"
-                  data-mode="make10"
-                >
-                  <div class="menu__item-block">
-                    <svg
-                      class="menu__icon"
-                      viewBox="0 0 24 24"
-                    >
-                      <use href="./images/10.svg" />
-                    </svg>
-                    <span
-                      class="menu__text"
-                      data-i18n="modes.make10.name"
-                    ></span>
-                  </div>
-                </li>
-                <li
-                  class="menu__item menu__item--mode"
                   data-mode="compare"
                 >
                   <div class="menu__item-block">
@@ -623,6 +629,23 @@
                     <span
                       class="menu__text"
                       data-i18n="modes.compare.name"
+                    ></span>
+                  </div>
+                </li>
+                <li
+                  class="menu__item menu__item--mode"
+                  data-mode="make10"
+                >
+                  <div class="menu__item-block">
+                    <svg
+                      class="menu__icon"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="./images/10.svg" />
+                    </svg>
+                    <span
+                      class="menu__text menu__text--make10"
+                      data-i18n="modes.make10.name"
                     ></span>
                   </div>
                 </li>
