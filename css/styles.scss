@@ -191,16 +191,13 @@ $desktop-min-width: 1024px;
   background: linear-gradient($color-topbar-bg-start, $color-topbar-bg-end);
   box-shadow: $shadow-medium;
   color: $color-topbar-text;
-  // border-radius: 10px;
 
   @include on-tablet {
     padding: 7px;
-    // border-radius: 15px;
   }
 
   @include on-desktop {
     padding: 10px;
-    // border-radius: 20px;
   }
 
   &__title {
@@ -306,6 +303,7 @@ $desktop-min-width: 1024px;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+  border-radius: 0 0 10px 10px;
 
   &__wrapper {
     max-width: 300px;
@@ -431,15 +429,14 @@ $desktop-min-width: 1024px;
   &__text {
     margin-left: 10px;
   }
-}
 
-.menu.open {
-  opacity: 1;
-  visibility: visible;
-  box-sizing: border-box;
-  transform: translateY(0);
-  box-shadow: $shadow-medium;
-  border-radius: 0 0 10px 10px;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    box-sizing: border-box;
+    transform: translateY(0);
+    box-shadow: $shadow-medium;
+  }
 }
 
 .main {
@@ -588,6 +585,7 @@ $desktop-min-width: 1024px;
     justify-content: center;
     border: 2px solid $color-border;
     box-sizing: border-box;
+    border-radius: 10px;
 
     @include on-tablet {
       font-size: 30px;
@@ -815,12 +813,12 @@ $desktop-min-width: 1024px;
   padding-top: 10px;
 
   @include on-tablet {
-      padding-top: 15px;
-    }
+    padding-top: 15px;
+  }
 
-    @include on-desktop {
-      padding-top: 20px;
-    }
+  @include on-desktop {
+    padding-top: 20px;
+  }
 
   &__title {
     list-style: none;

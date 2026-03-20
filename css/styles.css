@@ -223,6 +223,7 @@
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+  border-radius: 0 0 10px 10px;
 }
 .menu__wrapper {
   max-width: 300px;
@@ -342,14 +343,12 @@
 .menu__text {
   margin-left: 10px;
 }
-
 .menu.open {
   opacity: 1;
   visibility: visible;
   box-sizing: border-box;
   transform: translateY(0);
   box-shadow: var(--shadow-medium);
-  border-radius: 0 0 10px 10px;
 }
 
 .main {
@@ -498,6 +497,7 @@
   justify-content: center;
   border: 2px solid var(--border);
   box-sizing: border-box;
+  border-radius: 10px;
 }
 @media (min-width: 768px) {
   .game__start-menu.open {
