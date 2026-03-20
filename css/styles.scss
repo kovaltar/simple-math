@@ -29,7 +29,6 @@
   --divider: #ccc;
 
   --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
-  // --shadow-medium: 0 5px 10px rgba(0, 0, 0, 0.2);
   --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.22);
   --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.18);
   --surface-highlight: rgba(255, 255, 255, 0.04);
@@ -114,12 +113,7 @@ $desktop-min-width: 1024px;
 
     --color-menu-icon: #1e293b;
 
-    // --divider: #475569;
-    // --divider: rgba(255,255,255,0.16);
     --divider: #334155;
-
-    // --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.4);
-    // --shadow-medium: 0 5px 10px rgba(0, 0, 0, 0.6);
 
     --shadow-soft:
       0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -180,8 +174,6 @@ $desktop-min-width: 1024px;
   padding-bottom: 50%;
   border-radius: 50%;
   background-color: $color-primary;
-  // background-color: $color-topbar-text;
-
   transition: transform 0.3s;
 }
 
@@ -197,16 +189,18 @@ $desktop-min-width: 1024px;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient($color-topbar-bg-start, $color-topbar-bg-end);
-  // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: $shadow-medium;
   color: $color-topbar-text;
+  // border-radius: 10px;
 
   @include on-tablet {
     padding: 7px;
+    // border-radius: 15px;
   }
 
   @include on-desktop {
     padding: 10px;
+    // border-radius: 20px;
   }
 
   &__title {
@@ -297,44 +291,38 @@ $desktop-min-width: 1024px;
 .menu {
   will-change: transform, opacity;
   position: fixed;
-  // position: absolute;
-
   top: 50px;
   right: 0px;
-
   opacity: 0;
   visibility: hidden;
-
   transform: translateY(-10px);
-  // transform: translateY(-10px) scale(0.01);
-
   transform-origin: top right;
-  // transition: all 0.2s ease;
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
 
-  padding: 0 20px 20px 20px;
   background-color: $color-surface;
-  // background-color: #ffffff;
-  // background-color: #e2eefd;
   color: $color-text;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
 
   &__wrapper {
-    width: 280px;
-    margin: 20px auto;
+    max-width: 300px;
+    margin: auto;
     font: inherit;
 
     @include on-tablet {
-      width: 420px;
+      max-width: 450px;
     }
 
     @include on-desktop {
-      width: 560px;
+      max-width: 600px;
     }
+  }
+
+  &__nav {
+    padding: 0 15px 15px 15px;
   }
 
   &--settings {
@@ -363,7 +351,7 @@ $desktop-min-width: 1024px;
   }
 
   &__item {
-    padding-top: 20px;
+    padding-top: 15px;
   }
 
   &__item-block {
@@ -378,8 +366,6 @@ $desktop-min-width: 1024px;
     display: block;
     height: 2px;
     width: 100%;
-    // background-color: #1e3a8a;
-    // background-color: #3b82f6;
     background-color: $color-primary;
 
     transition: transform 0.3s;
@@ -415,18 +401,12 @@ $desktop-min-width: 1024px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 24px;
     height: 24px;
-
-    // font-family: 'Noto Sans Math', Roboto, sans-serif;
     font-size: 20px;
     font-weight: bold;
-
     border-radius: 6px;
-    // background: #ffeb3b;
     background: $color-accent;
-    // color: $color-text;
     color: $color-menu-icon;
     border: 2px solid $color-text;
     box-sizing: border-box;
@@ -454,16 +434,12 @@ $desktop-min-width: 1024px;
 }
 
 .menu.open {
-  // display: block;
   opacity: 1;
   visibility: visible;
   box-sizing: border-box;
-  // transform: translateY(0) scale(1);
   transform: translateY(0);
-
   box-shadow: $shadow-medium;
-  // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
 }
 
 .main {
@@ -472,8 +448,6 @@ $desktop-min-width: 1024px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  // overflow: hidden;
 }
 
 .game {
@@ -528,7 +502,6 @@ $desktop-min-width: 1024px;
 
     &--tips {
       position: relative;
-      // margin-bottom: 20px;
 
       &::before {
         color: $color-text;
@@ -537,7 +510,6 @@ $desktop-min-width: 1024px;
         text-transform: uppercase;
         position: absolute;
         top: -20px;
-        // content: "Обери правильну відповідь:";
         content: var(--tips-title);
 
         @include on-tablet {
@@ -578,17 +550,12 @@ $desktop-min-width: 1024px;
     margin-block: 15px;
     display: block;
     border-radius: 10px;
-    // background-color: #e2eefd;
     background-color: $color-surface;
-    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow:
       inset 0 1px 0 $surface-highlight,
       $shadow-soft;
-    // border: 2px solid #bfdbfe;
     border: 2px solid $color-border;
     box-sizing: border-box;
-
-    // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     line-height: 2;
     color: $color-text;
     font-size: 20px;
@@ -613,14 +580,12 @@ $desktop-min-width: 1024px;
   &__start-menu.open {
     display: flex;
     top: 0;
-    // background-color: #eff6ff;
     font-size: 20px;
     visibility: visible;
     opacity: 1;
     position: relative;
     align-items: center;
     justify-content: center;
-    // border: 2px solid #bfdbfe;
     border: 2px solid $color-border;
     box-sizing: border-box;
 
@@ -670,9 +635,6 @@ $desktop-min-width: 1024px;
     background: $color-surface;
     border: 2px solid $color-border;
     color: $color-text;
-    // box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
-    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    // box-shadow: $shadow-medium;
     box-shadow:
       inset 0 1px 0 $surface-highlight,
       $shadow-medium;
@@ -696,21 +658,17 @@ $desktop-min-width: 1024px;
     &--correct {
       background-color: $color-success-bg;
       border-color: $color-success;
-      // color: #166534;
       color: $color-success;
     }
 
     &--wrong {
       background-color: $color-error-bg;
       border-color: $color-error;
-      // color: #7f1d1d;
       color: $color-error;
     }
 
     &--tip {
-      // background: #dbeafe;
       background: $color-bg;
-      // border: 2px solid transparent;
       border: 2px solid $color-surface;
       color: $color-text;
       cursor: pointer;
@@ -759,12 +717,6 @@ $desktop-min-width: 1024px;
 
 //  settings menu
 
-$spacing-row-vertical: 6px;
-$spacing-row-horizontal: 12px;
-$border-radius: 6px;
-$input-border-radius: 4px;
-// $input-width: 30px;
-
 @mixin row-style {
   display: flex;
   align-items: center;
@@ -774,7 +726,7 @@ $input-border-radius: 4px;
   font-weight: bold;
   min-height: 38px;
   box-sizing: border-box;
-  padding: $spacing-row-vertical $spacing-row-horizontal;
+  padding: 6px 12px;
   border-radius: 6px;
   transition:
     background 0.2s,
@@ -796,7 +748,6 @@ $input-border-radius: 4px;
   }
 
   &:not(:last-child) {
-    // border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     border-bottom: 1px solid $color-divider;
 
     @include on-tablet {
@@ -823,19 +774,19 @@ $input-border-radius: 4px;
 }
 
 @mixin input-style {
-  width: 30px;
+  width: 40px;
   padding: 4px 6px;
   margin: 0 4px;
   border: 1px solid $color-divider;
   border-radius: 4px;
-  font-size: 14px;
+  font: inherit;
   text-align: center;
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 
   @include on-tablet {
-    width: 45px;
+    width: 60px;
     padding: 6px 9px;
     margin: 0 6px;
     border: 1.5px solid $color-divider;
@@ -844,7 +795,7 @@ $input-border-radius: 4px;
   }
 
   @include on-desktop {
-    width: 60px;
+    width: 80px;
     padding: 8px 12px;
     margin: 0 8px;
     border: 2px solid $color-divider;
@@ -861,7 +812,15 @@ $input-border-radius: 4px;
 
 .settings {
   font: inherit;
-  // font-size: 18px;
+  padding-top: 10px;
+
+  @include on-tablet {
+      padding-top: 15px;
+    }
+
+    @include on-desktop {
+      padding-top: 20px;
+    }
 
   &__title {
     list-style: none;
@@ -890,7 +849,6 @@ $input-border-radius: 4px;
     }
 
     &:hover {
-      // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
       box-shadow: $shadow-medium;
       transform: translateY(-1px);
     }
@@ -937,14 +895,14 @@ $input-border-radius: 4px;
 
   &__group {
     background: $color-surface;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     border-radius: 8px;
     box-shadow:
       inset 0 1px 0 $surface-highlight,
       $shadow-soft;
 
     @include on-tablet {
-      margin-bottom: 18px;
+      margin-bottom: 15px;
       border-radius: 12px;
       box-shadow:
         inset 0 1.5px 0 $surface-highlight,
@@ -952,7 +910,7 @@ $input-border-radius: 4px;
     }
 
     @include on-desktop {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       border-radius: 16px;
       box-shadow:
         inset 0 2px 0 $surface-highlight,
@@ -1005,8 +963,6 @@ $input-border-radius: 4px;
 
     &--reset {
       text-transform: inherit;
-      // color: inherit;
-      // background: transparent;
       border: none;
       width: 100%;
       justify-content: center;
@@ -1036,11 +992,9 @@ $input-border-radius: 4px;
 
     box-sizing: content-box;
     cursor: pointer;
-    // background-color: $color-surface;
     background-color: $color-bg;
     color: $color-text;
     border: 1px solid $color-divider;
-    // border: 1px solid $color-surface;
     box-shadow: inset 0 1px 0 $surface-highlight;
     transition: all 0.2s ease;
 

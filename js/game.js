@@ -22,6 +22,51 @@ const makeTargetSetButtons = document.querySelectorAll(".ranges__button");
 const btnResetRanges = document.querySelector(".ranges__row--reset");
 let rangesChanged = false;
 
+const gameMenu = document.getElementById("gameMenu");
+const langMenu = document.getElementById("langMenu");
+const settingsMenu = document.getElementById("settingsMenu");
+const settingsGroups = document.querySelectorAll(".settings__group");
+const settingsLangMenu = document.querySelector(".langs");
+const settingsRangeMenu = document.querySelector(".ranges");
+
+const gameTitleBox = document.querySelector(".game__title");
+const gameContainer = document.querySelector(".game__container--play");
+
+const firstNumBox = document.querySelector(".game__box--first");
+const operatorBox = document.querySelector(".game__box.game__box--operator");
+const secondNumBox = document.querySelector(".game__box--second");
+const equalityBox = document.querySelector(".game__box.game__box--equals");
+const resultBox = document.querySelector(".game__box--result");
+const input = document.querySelector(".game__input");
+
+const tipsContainer = document.querySelector(".game__container--tips");
+const tipBoxes = document.querySelectorAll(".game__box--tip");
+
+const defaultSettings = {
+  language: "en",
+  theme: "light",
+  make10: {
+    target: 10,
+    range: [1, 9],
+  },
+  ranges: {
+    addition: [0, 10],
+    subtraction: [0, 20],
+    multiplication: [0, 10],
+    division: [1, 10],
+  },
+};
+
+const settings = {
+  get() {
+    return JSON.parse(localStorage.getItem("gameSettings") || "{}");
+  },
+
+  set(data) {
+    localStorage.setItem("gameSettings", JSON.stringify(data));
+  },
+};
+
 const gameState = {
   mode: null,
   firstNum: null,
@@ -113,31 +158,85 @@ const inputConfig = {
   },
 };
 
-const gameMenu = document.getElementById("gameMenu");
-const langMenu = document.getElementById("langMenu");
-const settingsMenu = document.getElementById("settingsMenu");
-const settingsGroups = document.querySelectorAll(".settings__group");
-const settingsLangMenu = document.querySelector(".langs");
-const settingsRangeMenu = document.querySelector(".ranges");
-
-const gameTitleBox = document.querySelector(".game__title");
-const gameContainer = document.querySelector(".game__container--play");
-
-const firstNumBox = document.querySelector(".game__box--first");
-const operatorBox = document.querySelector(".game__box.game__box--operator");
-const secondNumBox = document.querySelector(".game__box--second");
-const equalityBox = document.querySelector(".game__box.game__box--equals");
-const resultBox = document.querySelector(".game__box--result");
-const input = document.querySelector(".game__input");
-
-const tipsContainer = document.querySelector(".game__container--tips");
-const tipBoxes = document.querySelectorAll(".game__box--tip");
-
+loadSettings();
+syncMakeTargetButtons();
 initLang();
 translateText();
 setActiveLangMenu();
 setRangesValues();
 makeTargetTitleUpdate();
+
+function saveSettings() {
+  settings.set({
+    // language: getLang(),
+    theme: page.classList.contains("page--theme--dark") ? "dark" : "light",
+    make10: {
+      target: gameModes.make10.target,
+      range: gameModes.make10.range,
+    },
+    ranges: Object.fromEntries(
+      Object.entries(gameModes).map(([mode, config]) => [
+        mode,
+        [...config.range],
+      ]),
+    ),
+  });
+
+  console.log(JSON.parse(localStorage.gameSettings));
+}
+
+// function applyLang(language) {
+//   if (!language) {
+//     return;
+//   }
+
+//   setLang(language);
+// }
+
+function applyTheme(theme) {
+  if (!theme) return;
+
+  page.classList.toggle("page--theme--dark", theme === "dark");
+  switcher.classList.toggle("theme-switcher--theme--dark", theme === "dark");
+}
+
+function applyMake10(make10) {
+  if (!make10) return;
+
+  gameModes.make10.target =
+    make10.target ?? defaultSettings.make10.target;
+
+  if (Array.isArray(make10.range) && make10.range.length === 2) {
+    gameModes.make10.range = make10.range;
+  }
+}
+
+function applyRanges(ranges) {
+  if (!ranges) return;
+
+  for (const mode in ranges) {
+    if (gameModes[mode]) {
+      gameModes[mode].range = ranges[mode];
+    }
+  }
+}
+
+function loadSettings() {
+  const savedSettings = settings.get();
+
+  // applyLang(saveSettings.language);
+  applyTheme(savedSettings.theme);
+  applyMake10(savedSettings.make10);
+  applyRanges(savedSettings.ranges);
+}
+
+function syncMakeTargetButtons() {
+  makeTargetSetButtons.forEach((btn) => {
+    const value = +btn.dataset.value;
+
+    btn.classList.toggle("active", value === gameModes.make10.target);
+  });
+}
 
 function makeTargetTitleUpdate() {
   const target = gameModes.make10.target;
@@ -155,14 +254,14 @@ function makeTargetTitleUpdate() {
   });
 }
 
+function switchTheme() {
+  page.classList.toggle("page--theme--dark");
+  switcher.classList.toggle("theme-switcher--theme--dark");
+}
+
 switcher.addEventListener("click", () => {
-  if (page.classList.contains("page--theme--dark")) {
-    page.classList.remove("page--theme--dark");
-    switcher.classList.remove("theme-switcher--theme--dark");
-  } else {
-    page.classList.add("page--theme--dark");
-    switcher.classList.add("theme-switcher--theme--dark");
-  }
+  switchTheme();
+  saveSettings();
 });
 
 makeTargetSettingsRow.addEventListener("click", (e) => {
@@ -181,13 +280,13 @@ makeTargetSettingsRow.addEventListener("click", (e) => {
 
     const targetValue = +e.target.dataset.value;
     const targetMode = gameModes.make10;
-    const mode = gameState.mode;
 
     targetMode.target = targetValue;
     targetMode.range[1] = targetValue - 1;
     rangesChanged = true;
 
     makeTargetTitleUpdate();
+    saveSettings();
   }
 });
 
@@ -225,6 +324,7 @@ function resetRanges() {
   rangesChanged = true;
 
   setRangesValues();
+  saveSettings();
 }
 
 rangeSettingsInputs.forEach((input) =>
@@ -348,6 +448,7 @@ function selectLang(menuItem) {
     translateText();
     makeTargetTitleUpdate();
     setActiveLangMenu();
+    // saveSettings();
   }
 
   langMenu.classList.remove("open");
@@ -384,6 +485,7 @@ function syncRangesFromInputs() {
 
 function handleSettingsClose() {
   syncRangesFromInputs();
+  saveSettings();
 
   if (rangesChanged && gameState.mode) {
     setUp();
@@ -585,7 +687,10 @@ function filterGameInput() {
 }
 
 function filterRangeInput(e) {
-  let value = e.target.value.replace(/[^0-9]/g, "");
+  const input = e.target;
+  let value = input.value.replace(/[^0-9]/g, "");
+  const mode = input.dataset.modename;
+  const maxValue = mode === 'multiplication' ? 99 : 1000;
 
   if (value === "") {
     e.target.value = "";
@@ -593,11 +698,11 @@ function filterRangeInput(e) {
     return;
   }
 
-  if (Number(value) > 1000) {
-    value = "1000";
+  if (Number(value) > maxValue) {
+    value = maxValue;
   }
 
-  e.target.value = value;
+  input.value = value;
 }
 
 function focusInput() {
