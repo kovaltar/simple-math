@@ -2,7 +2,7 @@ import { locales } from "./locales.js";
 
 export const langLabels = {
   en: "EN",
-  uk: "UA",
+  uk: "UK",
   pl: "PL"
 };
 
