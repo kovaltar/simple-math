@@ -688,18 +688,23 @@ function filterGameInput() {
 
 function filterRangeInput(e) {
   const input = e.target;
-  let value = input.value.replace(/[^0-9]/g, "");
+  let value = +input.value.replace(/[^0-9]/g, "");
   const mode = input.dataset.modename;
   const maxValue = mode === 'multiplication' ? 99 : 1000;
+  const minValue = mode === 'division' ? 1 : 0;
 
-  if (value === "") {
-    e.target.value = "";
+  // if (value === "") {
+  //   e.target.value = "";
 
-    return;
+  //   return;
+  // }
+
+  if (value > maxValue) {
+    value = maxValue;
   }
 
-  if (Number(value) > maxValue) {
-    value = maxValue;
+  if (value < minValue) {
+    value = minValue;
   }
 
   input.value = value;

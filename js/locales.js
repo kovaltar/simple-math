@@ -14,7 +14,7 @@ export const locales = {
       },
       langs: {
         title: "мова",
-        names: { ua: "українська", en: "англійська", pl: "польська" },
+        names: { uk: "(UK) українська", en: "(EN) англійська", pl: "(PL) польська" },
       },
     },
     modes: {
@@ -41,7 +41,7 @@ export const locales = {
       },
       langs: {
         title: "language",
-        names: { ua: "ukrainian", en: "english", pl: "polish" },
+        names: { uk: "(UK) ukrainian", en: "(EN) english", pl: "(PL) polish" },
       },
     },
     modes: {
@@ -68,7 +68,7 @@ export const locales = {
       },
       langs: {
         title: "język",
-        names: { ua: "ukrainski", en: "angelski", pl: "polski" },
+        names: { uk: "(UK) ukrainski", en: "(EN) angelski", pl: "(PL) polski" },
       },
     },
     modes: {
